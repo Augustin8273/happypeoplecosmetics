@@ -47,4 +47,5 @@ Route::post('guhindura/{id}',[ProductController::class,'guhinduraIbirangurwa'])-
 Route::get('gufutaKimwe/{id}',[ProductController::class,'gufutaKimwe'])->name('gufutaKimwe');
 
 Route::get('/kurangura_pdf',[UserController::class,'kurangura_pdf'])->name('kurangura_pdf');
+Route::get('/Profile/{id}',[UserController::class,'Profile'])->name('Profile');
 });

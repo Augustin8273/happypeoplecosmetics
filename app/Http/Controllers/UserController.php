@@ -22,9 +22,10 @@ class UserController extends Controller
     }
     public function dashboard(){
         $countStore=Product::all()->count();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
         $countKurangura=Kurangura::all()->count();
 
-        return view('dashboard',compact('countStore','countKurangura'));
+        return view('dashboard',compact('countStore','countKurangura','userRole'));
     }
 
     public function login(Request $request){
@@ -55,6 +56,19 @@ class UserController extends Controller
         }
     }
 
+    public function Profile($id){
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        return view('profileUser',compact('userRole'));
+
+    }
+        public function kurangura_pdf(){
+            $item=Kurangura::all();
+            $current=Carbon::now()->toDateString();
+            $pdf = Pdf::loadView('kuranguraPdf',['item'=>$item,'current'=>$current]);
+            return $pdf->download('Hpc-kurangura-Le-'.$current.'.pdf');
+        }
+
+
         public function logout()
     {
         if (session()->has('loginId')) {
@@ -65,12 +79,7 @@ class UserController extends Controller
         }
     }
 
-    public function kurangura_pdf(){
-        $item=Kurangura::all();
-        $current=Carbon::now()->toDateString();
-        $pdf = Pdf::loadView('kuranguraPdf',['item'=>$item,'current'=>$current]);
-        return $pdf->download('Hpc-kurangura-Le-'.$current.'.pdf');
-    }
+
 
 
 }
