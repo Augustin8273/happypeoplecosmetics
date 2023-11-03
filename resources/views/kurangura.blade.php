@@ -401,7 +401,6 @@
                                                     <button type="button" class="btn btn-" style="background:#9d24249c;color:white;"
                                                         data-bs-dismiss="modal">Fermer</button>
 
-
                                                 </div>
                                             </form><!-- End Multi Columns Form -->
                                         </div>
