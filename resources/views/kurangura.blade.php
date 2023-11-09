@@ -282,7 +282,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-lg-8">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Produits</h5>
@@ -387,7 +387,7 @@
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Quantite</label>
                                                     <input type="number" class="form-control" id="inputName5"
-                                                        placeholder="Prix d'Achat" name="quantite" required>
+                                                        placeholder="Quantite" name="quantite" required>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Description</label>

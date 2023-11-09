@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Dashboard</title>
+    <title>Product</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 </head>
 
@@ -128,15 +130,15 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
-              <span>{{$userRole->roles->name}}</span>
+                            {{-- <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
+              <span>{{$userRole->roles->nameRole}}</span> --}}
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('Profile',$userRole->id)}}">
+                            <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
@@ -156,7 +158,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}">
+                            <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Deconnexion</span>
                             </a>
@@ -224,13 +226,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('histoEntrees')}}">
+                        <a href="">
                             <i class="bi bi-circle"></i><span>Historic des entrees</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('rangura')}}">
-                            <i class="bi bi-circle"></i><span>Kurangura</span>
                         </a>
                     </li>
                 </ul>
@@ -263,15 +260,9 @@
             <li class="nav-heading">Configurations</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('addUserCreate')}}">
+                <a class="nav-link collapsed" href="">
                     <i class="bi bi-person-add"></i>
                     <span>Ajouter utilisateur</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('category_create')}}">
-                    <i class="bi bi-diagram-3"></i>
-                    <span>Category</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -287,92 +278,56 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Produits <span>| En stock</span></h5>
+                                <div class="col-lg-6">
+                                    <div class="row">
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{$countStore}}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
+                                        <div class="card">
+                                            <div class="card-body">
+                                              <h5 class="card-title" style="color: #390101;">Modifier le nom du category</h5>
+                                              @if (session('saveErrorArticleMessage'))
+                                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                  {{ session('saveErrorArticleMessage') }}
+                                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              </div>
+                                          @endif
 
-                                        </div>
+                                              <!-- Multi Columns Form -->
+                                              <form class="row g-3" action="{{route('category_update',$category->id)}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
+
+                                                <div class="col-md-6">
+                                                    <label for="inputName5" class="form-label">Category</label>
+                                                    <input type="text" class="form-control" id="inputName5" placeholder="Nom du category" name="category" value="{{$category->nameCategory}}" required>
+                                                  </div>
+                                                  <div class="col-md-6">
+                                                    <label for="inputName5" class="form-label">Description</label>
+                                                    <input type="text" class="form-control" id="inputName5" placeholder="Description" name="description" value="{{$category->description}}">
+                                                  </div>
+
+                                                  <div class="r">
+                                                    <button type="submit" class="btn btn- w-5" style="background:#390101;color:white;">Enregistrer</button>
+
+                                                  </div>
+                                              </form><!-- End Multi Columns Form -->
+
+                                            </div>
+                                          </div>
+
                                     </div>
                                 </div>
 
                             </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">A acheter <span>| Bientot</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-journal-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{$countKurangura}}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Sorties<span> | facture</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-receipt"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>0</h6>
-                                            <span class="text-danger small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Customers Card -->
                         </div>
                     </div>
+                </div>
+            </div>
         </section>
 
     </main><!-- End #main -->
@@ -402,7 +357,6 @@
 
     <!-- Template Main JS File -->
     <script src="HPC/assets/js/main.js"></script>
-
 
 </body>
 

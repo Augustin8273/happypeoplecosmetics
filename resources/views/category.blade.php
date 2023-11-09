@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Dashboard</title>
+    <title>Category</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
         integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
 </head>
 
@@ -128,15 +130,15 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
-              <span>{{$userRole->roles->name}}</span>
+                            {{-- <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
+              <span>{{$userRole->roles->nameRole}}</span> --}}
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('Profile',$userRole->id)}}">
+                            <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
@@ -156,7 +158,7 @@
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}">
+                            <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Deconnexion</span>
                             </a>
@@ -224,13 +226,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('histoEntrees')}}">
+                        <a href="">
                             <i class="bi bi-circle"></i><span>Historic des entrees</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('rangura')}}">
-                            <i class="bi bi-circle"></i><span>Kurangura</span>
                         </a>
                     </li>
                 </ul>
@@ -263,15 +260,9 @@
             <li class="nav-heading">Configurations</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('addUserCreate')}}">
+                <a class="nav-link collapsed" href="">
                     <i class="bi bi-person-add"></i>
                     <span>Ajouter utilisateur</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('category_create')}}">
-                    <i class="bi bi-diagram-3"></i>
-                    <span>Category</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -287,92 +278,115 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
-
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Produits <span>| En stock</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{$countStore}}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">A acheter <span>| Bientot</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-journal-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{$countKurangura}}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Sorties<span> | facture</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-receipt"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>0</h6>
-                                            <span class="text-danger small pt-1 fw-bold">Updated</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="card top-selling overflow-auto">
+                                                <div class="card-body pb-0">
+                                                    <h5 class="card-title">Les categories des produits du HPC</h5>
+                                                    @if (session('saveProductArticle'))
+                                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                            {{ session('saveProductArticle') }}
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                    @endif
+                                                    @if (session('SuccessProductArticle'))
+                                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                            {{ session('SuccessProductArticle') }}
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                    @endif
+                                                    @if (session('errorCategory'))
+                                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                            {{ session('errorCategory') }}
+                                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                                        </div>
+                                                    @endif
+                                                    <h5 class="card-title"><button class="btn btn-"
+                                                            style="background:#390101;color:white;" data-bs-toggle="modal"
+                                                            data-bs-target="#basicModal"><i
+                                                            class="bi bi-plus"></i>Nouveau</button>&nbsp&nbsp
+                                                            {{-- <a
+                                                            href=""><button class="btn btn-" style="background:#390101;color:white;"><i
+                                                                    class="bi bi-file-earmark-pdf"></i>Telecharger</button></a> --}}
+                                                                </h5>
+                                                    <table class="table datatable" id="example" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nom du categorie</th>
+                                                                <th>Description</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach ($category as $categories)
+                                                            <tr>
+                                                                <td><span style="font-weight: bold;">{{$categories->nameCategory}}</span></td>
+                                                                <td>{{$categories->description}}</td>
+                                                                 <td><a href="{{route('category_update_create',$categories->id)}}"><i class="bi bi-pencil-square" style="color:#390101;"></i></a>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                 <a href="{{route('category_delete',$categories->id)}}" onclick="return confirm('Voulez-vous supprimer cette categorie ?')"><i class="bi bi-trash" style="color:#390101;"></i></a></td>
+                                                            </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End Customers Card -->
                         </div>
                     </div>
+                </div>
+
+                <!-- Start approvisionnement Modal-->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="modal fade modal" id="basicModal" tabindex="-1">
+                            <div class="modal-dialog ">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="color:#390101;">Ajout du categorie
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Multi Columns Form -->
+                                        <form class="row g-3" action="{{route('category_store')}}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+
+                                            <div class="col-md-6">
+                                              <label for="inputName5" class="form-label">Category</label>
+                                              <input type="text" class="form-control" id="inputName5" placeholder="Nom du category" name="category" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <label for="inputName5" class="form-label">Description</label>
+                                              <input type="text" class="form-control" id="inputName5" placeholder="Description" name="description">
+                                            </div>
+
+                                            <div class="r">
+                                              <button type="submit" class="btn btn- w-5" style="background:#390101;color:white;">Enregistrer</button>
+                                              &nbsp&nbsp
+                                                    <button type="button" class="btn btn-" style="background:#9d24249c;color:white;"
+                                                        data-bs-dismiss="modal">Fermer</button>
+                                            </div>
+                                          </form>
+                                          <!-- End Multi Columns Form -->
+                                    </div>
+                                </div>
+                            </div><!-- End approvisionnement Modal-->
+
+
+            </div>
         </section>
 
     </main><!-- End #main -->
@@ -402,7 +416,6 @@
 
     <!-- Template Main JS File -->
     <script src="HPC/assets/js/main.js"></script>
-
 
 </body>
 

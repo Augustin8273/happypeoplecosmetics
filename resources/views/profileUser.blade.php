@@ -310,9 +310,9 @@
             <div class="card">
               <div class="card-body pt-3">
 
-                  @if (session('messEditChange'))
+                  @if (session('messageEditUser'))
                       <div class="alert alert-success" role="alert">
-                          {{ session('messEditChange') }}
+                          {{ session('messageEditUser') }}
                       </div>
                   @endif
                    @if (session('messPassChange'))
@@ -358,7 +358,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Non d'utilisateur</div>
+                      <div class="col-lg-3 col-md-4 label">Nom d'utilisateur</div>
                       <div class="col-lg-9 col-md-8">{{$userRole->username}}</div>
                     </div>
                     <div class="row">
@@ -386,32 +386,32 @@
                   <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                     <!-- Profile Edit Form -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('editerUser',$userRole->id)}}" method="POST" enctype="multipart/form-data">
                       @csrf
 
                       <div class="row mb-3">
-                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nom</label>
+                        <label for="Nom" class="col-md-4 col-lg-3 col-form-label">Nom</label>
                         <div class="col-md-4 col-lg-4">
-                          <input name="fname" type="text" class="form-control" id="fullName" value="{{$userRole->fname}}">
+                          <input name="fname" type="text" class="form-control" id="nom" value="{{$userRole->fname}}">
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Prenom</label>
+                        <label for="Prenom" class="col-md-4 col-lg-3 col-form-label">Prenom</label>
                         <div class="col-md-4 col-lg-4">
-                          <input name="lname" type="text" class="form-control" id="fullName" value="{{$userRole->lname}}">
+                          <input name="lname" type="text" class="form-control" id="prenom" value="{{$userRole->lname}}">
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                        <label for="Username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                         <div class="col-md-4 col-lg-4">
-                          <input name="username" type="text" class="form-control" id="fullName" value="{{$userRole->username}}">
+                          <input name="username" type="text" class="form-control" id="username" value="{{$userRole->username}}">
                         </div>
                       </div>
 
                       <div class="row mb-3">
-                        <label for="Job" class="col-md-4 col-lg-3 col-form-label">Telephone</label>
+                        <label for="Telephone" class="col-md-4 col-lg-3 col-form-label">Telephone</label>
                         <div class="col-md-4 col-lg-4">
-                          <input name="job" type="text" class="form-control" id="Job" value="{{$userRole->telephone}}">
+                          <input name="telephone" type="text" class="form-control" id="telephone" value="{{$userRole->telephone}}">
                         </div>
                       </div>
 
@@ -419,6 +419,20 @@
                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                         <div class="col-md-4 col-lg-4">
                           <input name="email" type="email" class="form-control" id="Email" value="{{$userRole->email}}">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="Role" class="col-md-4 col-lg-3 col-form-label">Role</label>
+                        <div class="col-md-4 col-lg-4">
+                            <select name="role" class="form-control">
+                                <option value="{{ $userRole->roles->id }}">{{ $userRole->roles->name }}</option>
+                                @foreach ($role as $roles)
+                                    <option value="{{ $roles->id }}">
+                                        {{ $roles->name }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                       </div>
 
@@ -432,7 +446,7 @@
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <form action="" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('changePassword',$userRole->id)}}" method="POST" enctype="multipart/form-data">
                       @csrf
                       <div class="row mb-3">
                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mot de passe recent</label>

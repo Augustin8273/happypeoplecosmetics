@@ -293,6 +293,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">Produit</th>
+                                                <th scope="col">Categorie</th>
                                                 <th scope="col">Quantite</th>
                                                 <th scope="col">Prix unitaire</th>
                                                 <th scope="col">Prix total</th>
@@ -306,7 +307,8 @@
                                             @endphp
                                             @foreach ($product as $products)
                                                 <tr>
-                                                    <td>{{$products->Produitname->nameProduct}}</td>
+                                                    <td><span style="font-weight: bold;">{{$products->Produitname->nameProduct}}</span></td>
+                                                    <td><span style="font-size: 10px;">({{$products->Category->nameCategory}})</span></td>
                                                     <td>{{$products->quantity}}</td>
                                                     <td>{{$products->unitPrice}}</td>
                                                     <td>{{$products->totalPrice}}</td>
@@ -343,13 +345,6 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Approvisionnement du stock</h5>
-                                    @if (session('saveProduct'))
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('saveProduct') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
-                                        </div>
-                                    @endif
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
@@ -362,6 +357,7 @@
                                             <thead style="background: #7a6161;color:white;">
                                                 <tr>
                                                     <th>Designation</th>
+                                                    <th>Categorie</th>
                                                     <th>Quantite</th>
                                                     <th>Prix unitaire</th>
                                                 </tr>
@@ -377,6 +373,19 @@
 
                                                                 @foreach ($article as $articles)
                                                                     <option value="{{ $articles->id }}">{{$articles->nameProduct}}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-12">
+
+                                                            <select class="form-control" id=""
+                                                                name="category[]">
+
+                                                                @foreach ($category as $categories)
+                                                                    <option value="{{ $categories->id }}">{{$categories->nameCategory}}</option>
                                                                 @endforeach
 
                                                             </select>

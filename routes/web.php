@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
@@ -26,7 +27,9 @@ Route::post('login',[UserController::class,'login'])->name('login');
 Route::get('/logout',[UserController::class,'logout'])->name('logout');
 
 Route::middleware(['checkIfLoggedIn'])->group(function () {
-Route::get('dashboard',[UserController::class,'dashboard'])->name('dashboard');
+
+Route::get('Dashboard',[UserController::class,'dashboard'])->name('dashboard');
+
 Route::get('product_create',[ProductController::class,'productCreate'])->name('productCreate');
 Route::post('product_store',[ProductArticleController::class,'productArticleStore'])->name('productStore');
 Route::get('stock',[ProductController::class,'stockList'])->name('stock');
@@ -46,6 +49,16 @@ Route::get('guhindura_ikidandazwa/{id}',[ProductController::class,'guhinduraKimw
 Route::post('guhindura/{id}',[ProductController::class,'guhinduraIbirangurwa'])->name('guhindura');
 Route::get('gufutaKimwe/{id}',[ProductController::class,'gufutaKimwe'])->name('gufutaKimwe');
 
+Route::get('category_create/',[CategoryController::class,'category_create'])->name('category_create');
+Route::post('category_store/',[CategoryController::class,'category_store'])->name('category_store');
+Route::get('category_update_create/{id}',[CategoryController::class,'category_update_create'])->name('category_update_create');
+Route::post('category_update/{id}',[CategoryController::class,'category_update'])->name('category_update');
+Route::get('category_delete/{id}',[CategoryController::class,'category_delete'])->name('category_delete');
+
 Route::get('/kurangura_pdf',[UserController::class,'kurangura_pdf'])->name('kurangura_pdf');
 Route::get('/Profile/{id}',[UserController::class,'Profile'])->name('Profile');
+Route::get('/addUserCreate',[UserController::class,'addUserCreate'])->name('addUserCreate');
+Route::post('/addUser',[UserController::class,'addUser'])->name('addUser');
+Route::post('/editerUser/{id}',[UserController::class,'editerUser'])->name('editerUser');
+Route::post('/changePassword/{id}',[UserController::class,'changePassword'])->name('changePassword');
 });

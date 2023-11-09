@@ -307,6 +307,7 @@
                                                 <thead style="background: #390101;color:white;">
                                                     <tr>
                                                         <th>Designation</th>
+                                                        <th>Categorie</th>
                                                         <th>Quantite</th>
                                                         <th>Prix unitaire</th>
                                                         {{-- <th>Observation</th> --}}
@@ -325,6 +326,19 @@
 
                                                                     @foreach ($article as $articles)
                                                                         <option value="{{ $articles->id }}">{{$articles->nameProduct}}</option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-12">
+
+                                                                <select class="form-control" id=""
+                                                                    name="category[]">
+
+                                                                    @foreach ($category as $categories)
+                                                                        <option value="{{ $categories->id }}">{{$categories->nameCategory}}</option>
                                                                     @endforeach
 
                                                                 </select>
@@ -425,6 +439,19 @@
                             </select>
                             </div>
                         </td>
+                        <td>
+                            <div class="col-md-12">
+
+                                    <select class="form-control" id=""
+                                        name="category[]">
+
+                                        @foreach ($category as $categories)
+                                            <option value="{{ $categories->id }}">{{$categories->nameCategory}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </td>
                         <td>
                             <div class="col-md-12">
 

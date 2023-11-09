@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('wholeSalePrice');
             $table->integer('discount')->default(0);
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }

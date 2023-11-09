@@ -178,13 +178,13 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('dashboard')}}">
+                <a class="nav-link collapsed" href="{{ route('dashboard') }}">
                     <i class="bi bi-grid"></i>
                     <span>Accueil</span>
                 </a>
             </li><!-- End Dashboard Nav -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('productListShow')}}">
+                <a class="nav-link collapsed" href="{{ route('productListShow') }}">
                     <i class="bi bi-list"></i>
                     <span>Produits</span>
                 </a>
@@ -198,12 +198,12 @@
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="{{route('produit_article')}}">
+                        <a href="{{ route('produit_article') }}">
                             <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('produit_list')}}">
+                        <a href="{{ route('produit_list') }}">
                             <i class="bi bi-circle"></i><span>Liste des articles</span>
                         </a>
                     </li>
@@ -216,12 +216,12 @@
                 </a>
                 <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="{{route('productCreate')}}">
+                        <a href="{{ route('productCreate') }}">
                             <i class="bi bi-circle"></i><span>Approvisonner stock</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{route('stock')}}">
+                        <a href="{{ route('stock') }}">
                             <i class="bi bi-circle"></i><span>Stock actuel</span>
                         </a>
                     </li>
@@ -285,43 +285,81 @@
                         <div class="col-lg-12">
                             <div class="row">
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="row">
-
                                         <div class="card">
                                             <div class="card-body">
-                                              <h5 class="card-title" style="color: #390101;">Ajouter le nom du produit</h5>
-                                              @if (session('saveErrorArticleMessage'))
-                                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                  {{ session('saveErrorArticleMessage') }}
-                                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                              </div>
-                                          @endif
+                                                <h5 class="card-title" style="color: #390101;">Ajouter l'utilisateur
+                                                    du logiciel</h5>
+                                                @if (session('saveErrorArticleMessage'))
+                                                    <div class="alert alert-danger alert-dismissible fade show"
+                                                        role="alert">
+                                                        {{ session('saveErrorArticleMessage') }}
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="alert" aria-label="Close"></button>
+                                                    </div>
+                                                @endif
+                                                @if (session('messageAddUser'))
+                                                    <div class="alert alert-success" role="alert">
+                                                        {{ session('messageAddUser') }}
+                                                    </div>
+                                                @endif
+                                                @if (session('messageAddUserRol'))
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ session('messageAddUserRol') }}
+                                                    </div>
+                                                @endif
+                                                @if (session('messageAddUserEmail'))
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ session('messageAddUserEmail') }}
+                                                    </div>
+                                                @endif
 
-                                              <!-- Multi Columns Form -->
-                                              <form class="row g-3" action="{{route('productStore')}}" method="POST" enctype="multipart/form-data">
-                                                @csrf
+                                                <!-- Multi Columns Form -->
+                                                <form class="row g-3" action="{{ route('addUser') }}" method="POST"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
 
-                                                <div class="col-md-8">
-                                                  <label for="inputName5" class="form-label">Nom du produit</label>
-                                                  <input type="text" class="form-control" id="inputName5" placeholder="Nom du produit" name="nameProduct" required>
-                                                </div>
-                                                <div class="col-md-8">
-                                                  <label for="inputName5" class="form-label">Prix d'Achat</label>
-                                                  <input type="number" class="form-control" id="inputName5" placeholder="Prix d'Achat" name="wholeSalePrice" required>
-                                                </div>
-                                                <div class="col-md-8">
-                                                  <label for="inputName5" class="form-label">Discount</label>
-                                                  <input type="number" class="form-control" id="inputName5" placeholder="Discount" name="discount">
-                                                </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputName5" class="form-label">Nom</label>
+                                                        <input type="text" class="form-control" id="inputName5"
+                                                            placeholder="Nom" name="fname" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputName5" class="form-label">Prenom</label>
+                                                        <input type="text" class="form-control" id="inputName5"
+                                                            placeholder="Prenom" name="lname" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputName5" class="form-label">Telephone</label>
+                                                        <input type="number" class="form-control" id="inputName5"
+                                                            placeholder="Telephone" name="telephone" required>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputName5" class="form-label">Email</label>
+                                                        <input type="email" class="form-control" id="email"
+                                                            placeholder="example@gmail.com" name="email">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <label for="inputName5" class="form-label">Role</label>
+                                                        <select name="role" class="form-control">
+                                                            <option>--select--</option>
+                                                            @foreach ($role as $roles)
+                                                                <option value="{{ $roles->id }}">
+                                                                    {{ $roles->name }}</option>
+                                                            @endforeach
 
-                                                <div class="r">
-                                                  <button type="submit" class="btn btn- w-5" style="background:#390101;color:white;">Enregistrer</button>
-                                                </div>
-                                              </form><!-- End Multi Columns Form -->
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="r">
+                                                        <button type="submit" class="btn btn- w-5"
+                                                            style="background:#390101;color:white;">Enregistrer</button>
+                                                    </div>
+                                                </form><!-- End Multi Columns Form -->
 
                                             </div>
-                                          </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -337,7 +375,8 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION STOCK</span></strong></div>
+        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION
+                    STOCK</span></strong></div>
     </footer><!-- End Footer -->
 
 

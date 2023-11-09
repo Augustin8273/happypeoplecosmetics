@@ -20,6 +20,8 @@ return new class extends Migration
             $table->integer('totalPrice');
             $table->integer('discount')->default(0);
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('category_id')->constrained();
+            $table->string('status')->default('0');
             $table->timestamps();
         });
     }

@@ -204,7 +204,7 @@
                                             @foreach ($product as $products)
                                                 <tr>
                                                     <td><span style="font-weight: bold;font-size:17px;">{{$products->Produitname->nameProduct}}</span></td>
-                                                    <td>{{$products->quantity}}</td>
+                                                    <td>[ {{$products->quantity}} ] <span style="font-size: 7px;">Category : {{$products->Category->nameCategory}}</span></td>
                                                     <td><span  style="font-weight: bold;background:#e6dada;padding:5px;font-size:20px;">{{number_format($products->unitPrice, 0, ',', '.')}} <span style="font-size: 10px;">Fbu</span></span></td>
                                                     <td>{{$products->totalPrice}}</td>
                                                     @php

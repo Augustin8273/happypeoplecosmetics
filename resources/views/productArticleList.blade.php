@@ -282,7 +282,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-lg-8">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Produits</h5>
