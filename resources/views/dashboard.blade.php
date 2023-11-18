@@ -341,7 +341,7 @@
                         </div><!-- End Revenue Card -->
 
                         <!-- Customers Card -->
-                        <div class="col-xxl-3 col-xl-3">
+                        <div class="col-xxl-3 col-md-3">
 
                             <div class="card info-card customers-card">
                                 <div class="card-body">
@@ -362,7 +362,7 @@
                             </div>
                         </div>
                         <!-- Daily income Card -->
-                        <div class="col-xxl-3 col-xl-3">
+                        <div class="col-xxl-3 col-md-3">
 
                             <div class="card info-card revenue-hpc">
                                 <div class="card-body">
