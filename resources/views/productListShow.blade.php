@@ -45,7 +45,8 @@
                 <img src="hpc/assets/img/hpc.png" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
-            <a href="{{ route('dashboard') }}" ><span class="d-none d-lg-block" style="color: #390101;">RETOUR</span></a>
+            <a href="{{ route('dashboard') }}" ><span class="d-none d-lg-block fw-bold" style="color: #390101;">
+                <i class="bi bi-arrow-return-left"></i>  RETOUR</span></a>
         </div><!-- End Logo -->
 
         <nav class="header-nav ms-auto">
