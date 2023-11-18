@@ -396,7 +396,7 @@
                     </div>
 
                     <!-- Start sortir Modal-->
-                    <div class="card">
+                <div class="card">
                         <div class="card-body">
                             <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
                                 <div class="modal-dialog ">
@@ -424,7 +424,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
 
                                                             <select class="form-control" id=""
                                                                 name="product_id[]">
@@ -437,7 +437,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
 
                                                             <input type="number" class="form-control"
                                                                 id="inputName5" min="1"
@@ -456,12 +456,12 @@
                                         </div>
                                     </form>
                                     <!-- End Multi Columns Form -->
-                                        </div>
                                     </div>
-                                </div><!-- End sortir Modal-->
-
-                </div>
-            </div>
+                                </div>
+                            </div>
+                        </div><!-- End sortir Modal-->
+                    </div>
+               </div>
         </section>
 
     </main><!-- End #main -->
