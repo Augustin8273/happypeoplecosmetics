@@ -424,7 +424,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
 
                                                             <select class="form-control" id=""
                                                                 name="product_id[]">
@@ -437,7 +437,7 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
 
                                                             <input type="number" class="form-control"
                                                                 id="inputName5" min="1"
@@ -446,7 +446,6 @@
 
                                                         </div>
                                                     </td>
-
                                                 </tr>
                                             </tbody>
                                         </table>
