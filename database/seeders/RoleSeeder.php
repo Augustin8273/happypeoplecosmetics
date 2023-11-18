@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
             Role::insert(["name" =>"Manager"]);
             Role::insert(["name" =>"Manager2"]);
             Role::insert(["name" =>"Seller"]);
+            Role::insert(["name" =>"Inactif"]);
 
     }
 }

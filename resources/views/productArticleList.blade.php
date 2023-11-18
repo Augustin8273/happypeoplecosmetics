@@ -20,22 +20,19 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="hpc/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
-    <!-- main CSS File -->
-    <link href="hpc/assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
+   <!-- main CSS File -->
+   <link href="{{asset('hpc/assets/css/style.css')}}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+       integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+       crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -53,39 +50,46 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
+                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}"
+                    title="Sortir du stock">
+                    <i class="bi bi-currency-dollar"
+                    style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
+                </a></li>
                 <li class="nav-item dropdown">
-                    {{-- @php
-                $countW = 0;
-            @endphp
-            @foreach ($warnCount as $items)
-                @php
-                    $QResta = $items->quantite;
-                    $QTot = $items->etat;
-                    $QPourc = $QResta / $QTot;
-                    $QPourcRest = $QPourc * 100;
-                    if ($QPourcRest < 30) {
-                        $countW++;
-                    }
-                @endphp
-            @endforeach --}}
+                    @php
+                        $countW = 0;
+                    @endphp
+                    @foreach ($warnCount as $items)
+                        @php
+                            $QResta = $items->quantity;
+                            $QTot = $items->status;
+                            $QPourc = $QResta / $QTot;
+                            $QPourcRest = $QPourc * 100;
+                            if ($QPourcRest < 30) {
+                                $countW++;
+                            }
+                        @endphp
+                    @endforeach
 
-                    {{-- @if ($countW)
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Stock dessous de 30 %">
-                <i class="bi bi-bell"></i>
-                 <span class="badge bg-danger badge-number">{{$countW}}</span>
-             </a>
-             @else --}}
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Stock dessous de 30 %">
-                        <i class="bi bi-bell"></i>
+                    @if ($countW)
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+                            title="Stock dessous de 30 %">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger badge-number">{{ $countW }}</span>
+                        </a>
+                    @else
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+                            title="Stock dessous de 30 %">
+                            <i class="bi bi-bell"></i>
 
-                    </a>
-                    {{-- @endif<!-- End Notification Icon --> --}}
-
+                        </a>
+                    @endif
+                    <!-- End Notification Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            <span class="badge bg-danger">0</span> Article a approvisionner
-                            <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
+                            <span class="badge bg-danger">{{ $countW }} </span> Produit a approvisionner
+                            <a href="{{ route('runningLow') }}"><span
+                                    class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -97,21 +101,25 @@
                 </li><!-- End Notification Nav -->
                 <li class="nav-item dropdown">
 
-                    {{-- @if ($numberMessage)
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
-              <i class="bi bi-chat-left-text"></i>
-              <span class="badge bg-success badge-number">{{$numberMessage}}</span>
-            </a>@else --}}
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number"></span>
-                    </a>
-                    {{-- @endif<!-- End Messages Icon --> --}}
+                    @if ($countKurangura)
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
+                        </a>
+                    @else
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span class="badge bg-success badge-number"></span>
+                        </a>
+                    @endif
+                    <!-- End Messages Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            Vous avez <span class="badge bg-success">0</span> nouvelle(s) commandes
-                            <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
+                            Vous avez <span class="badge bg-success">{{ $countKurangura }}</span> produits a acheter a
+                            venir !
+                            <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
+                                    tout</span></a>
                         </li>
 
                         <li>
@@ -130,15 +138,16 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            {{-- <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
-              <span>{{$userRole->roles->nameRole}}</span> --}}
+                            <h6>{{ $userRole->fname }} {{ $userRole->lname }}</h6>
+                            <span>{{ $userRole->roles->name }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ route('Profile', $userRole->id) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
@@ -146,19 +155,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        {{-- @if ($userRole->roles->nameRole == 'Admin' || $userRole->roles->nameRole == 'DG') --}}
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
-                                <i class="bi bi-gear"></i>
-                                <span>Paramètres</span>
-                            </a>
-                        </li>
-                        {{-- @endif --}}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Deconnexion</span>
                             </a>
@@ -172,110 +173,108 @@
 
     </header><!-- End Header -->
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+   <!-- ======= Sidebar ======= -->
+   <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
+    <ul class="sidebar-nav" id="sidebar-nav">
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('dashboard')}}">
-                    <i class="bi bi-grid"></i>
-                    <span>Accueil</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('productListShow')}}">
-                    <i class="bi bi-list"></i>
-                    <span>Produits</span>
-                </a>
-            </li><!-- End list Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+                <i class="bi bi-grid"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('productListShow') }}">
+                <i class="bi bi-list"></i>
+                <span>Produits</span>
+            </a>
+        </li><!-- End list Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('produit_article') }}">
-                            <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('produit_list') }}">
-                            <i class="bi bi-circle"></i><span>Liste des articles</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('produit_article') }}">
+                        <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('produit_list') }}">
+                        <i class="bi bi-circle"></i><span>Liste des articles</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Components Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('productCreate') }}">
-                            <i class="bi bi-circle"></i><span>Approvisonner stock</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('stock') }}">
-                            <i class="bi bi-circle"></i><span>Stock actuel</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Historic des entrees</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Icons Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productCreate') }}">
+                        <i class="bi bi-circle"></i><span>Approvisonner stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('stock') }}">
+                        <i class="bi bi-circle"></i><span>Stock actuel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('histoEntrees') }}">
+                        <i class="bi bi-circle"></i><span>Historic des entrees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('rangura') }}">
+                        <i class="bi bi-circle"></i><span>Kurangura</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Creer nouveau</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Liste</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Historic des sorties</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Forms Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productSortir') }}">
+                        <i class="bi bi-circle"></i><span>Creer nouveau</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('sortiList') }}">
+                        <i class="bi bi-circle"></i><span>Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
 
-            {{-- @if ($userRole->roles->nameRole == 'Admin' || $userRole->roles->nameRole == 'DG') --}}
-            <li class="nav-heading">Configurations</li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-person-add"></i>
-                    <span>Ajouter utilisateur</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-gear"></i>
-                    <span>Paramètres</span>
-                </a>
-            </li><!-- End Register Page Nav -->
-            {{-- @endif --}}
+        <li class="nav-heading">Configurations</li>
 
-        </ul>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                <i class="bi bi-person-add"></i>
+                <span>Ajouter utilisateur</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('category_create') }}">
+                <i class="bi bi-diagram-3"></i>
+                <span>Category</span>
+            </a>
+        </li>
+    </ul>
 
-    </aside><!-- End Sidebar-->
+</aside><!-- End Sidebar-->
 
     <main id="main" class="main">
         <section class="section dashboard">
@@ -309,9 +308,7 @@
                                     <h5 class="card-title"><button class="btn btn-"
                                             style="background:#390101;color:white;" data-bs-toggle="modal"
                                             data-bs-target="#basicModal"><i
-                                            class="bi bi-plus"></i>Nouveau</button>&nbsp&nbsp<a
-                                            href=""><button class="btn btn-" style="background:#390101;color:white;"><i
-                                                    class="bi bi-file-earmark-pdf"></i>Telecharger</button></a></h5>
+                                            class="bi bi-plus"></i>Nouveau</button></h5>
                                     <table class="table datatable" id="example" >
                                         <thead style="background: #7a6161;color:white;">
                                             <tr>
@@ -347,7 +344,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-8">
 
                     <!-- Start approvisionnement Modal-->
                     <div class="card">
@@ -395,8 +392,6 @@
                                         </div>
                                     </div>
                                 </div><!-- End approvisionnement Modal-->
-
-
                             </div>
                         </div>
                     </div>
@@ -413,14 +408,14 @@
 
 
     <!-- Vendor JS Files -->
-    <script src="HPC/assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="HPC/assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="HPC/assets/vendor/echarts/echarts.min.js"></script>
-    <script src="HPC/assets/vendor/quill/quill.min.js"></script>
-    <script src="HPC/assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="HPC/assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="HPC/assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
 
     <!-- Toastr-->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -430,7 +425,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Main JS File -->
-    <script src="HPC/assets/js/main.js"></script>
+    <script src="{{asset('HPC/assets/js/main.js')}}"></script>
 
 </body>
 

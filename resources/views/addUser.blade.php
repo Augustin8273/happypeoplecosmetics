@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Product</title>
+    <title>User</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -20,22 +20,19 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="hpc/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="hpc/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
-    <!-- main CSS File -->
-    <link href="hpc/assets/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
+   <!-- main CSS File -->
+   <link href="{{asset('hpc/assets/css/style.css')}}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+       integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+       crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -53,39 +50,46 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-
+                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}"
+                    title="Sortir du stock">
+                    <i class="bi bi-currency-dollar"
+                    style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
+                </a></li>
                 <li class="nav-item dropdown">
-                    {{-- @php
-                $countW = 0;
-            @endphp
-            @foreach ($warnCount as $items)
-                @php
-                    $QResta = $items->quantite;
-                    $QTot = $items->etat;
-                    $QPourc = $QResta / $QTot;
-                    $QPourcRest = $QPourc * 100;
-                    if ($QPourcRest < 30) {
-                        $countW++;
-                    }
-                @endphp
-            @endforeach --}}
+                    @php
+                        $countW = 0;
+                    @endphp
+                    @foreach ($warnCount as $items)
+                        @php
+                            $QResta = $items->quantity;
+                            $QTot = $items->status;
+                            $QPourc = $QResta / $QTot;
+                            $QPourcRest = $QPourc * 100;
+                            if ($QPourcRest < 30) {
+                                $countW++;
+                            }
+                        @endphp
+                    @endforeach
 
-                    {{-- @if ($countW)
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Stock dessous de 30 %">
-                <i class="bi bi-bell"></i>
-                 <span class="badge bg-danger badge-number">{{$countW}}</span>
-             </a>
-             @else --}}
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Stock dessous de 30 %">
-                        <i class="bi bi-bell"></i>
+                    @if ($countW)
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+                            title="Stock dessous de 30 %">
+                            <i class="bi bi-bell"></i>
+                            <span class="badge bg-danger badge-number">{{ $countW }}</span>
+                        </a>
+                    @else
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
+                            title="Stock dessous de 30 %">
+                            <i class="bi bi-bell"></i>
 
-                    </a>
-                    {{-- @endif<!-- End Notification Icon --> --}}
-
+                        </a>
+                    @endif
+                    <!-- End Notification Icon -->
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                         <li class="dropdown-header">
-                            <span class="badge bg-danger">0</span> Article a approvisionner
-                            <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
+                            <span class="badge bg-danger">{{ $countW }} </span> Produit a approvisionner
+                            <a href="{{ route('runningLow') }}"><span
+                                    class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -97,21 +101,25 @@
                 </li><!-- End Notification Nav -->
                 <li class="nav-item dropdown">
 
-                    {{-- @if ($numberMessage)
-            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
-              <i class="bi bi-chat-left-text"></i>
-              <span class="badge bg-success badge-number">{{$numberMessage}}</span>
-            </a>@else --}}
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number"></span>
-                    </a>
-                    {{-- @endif<!-- End Messages Icon --> --}}
+                    @if ($countKurangura)
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
+                        </a>
+                    @else
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                            <i class="bi bi-chat-left-text"></i>
+                            <span class="badge bg-success badge-number"></span>
+                        </a>
+                    @endif
+                    <!-- End Messages Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            Vous avez <span class="badge bg-success">0</span> nouvelle(s) commandes
-                            <a href=""><span class="badge rounded-pill bg-primary p-2 ms-2">Voir tout</span></a>
+                            Vous avez <span class="badge bg-success">{{ $countKurangura }}</span> produits a acheter a
+                            venir !
+                            <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
+                                    tout</span></a>
                         </li>
 
                         <li>
@@ -130,15 +138,16 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            {{-- <h6>{{$userRole->fname}} {{$userRole->lname}}</h6>
-              <span>{{$userRole->roles->nameRole}}</span> --}}
+                            <h6>{{ $userRole->fname }} {{ $userRole->lname }}</h6>
+                            <span>{{ $userRole->roles->name }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ route('Profile', $userRole->id) }}">
                                 <i class="bi bi-person"></i>
                                 <span>Profile</span>
                             </a>
@@ -146,19 +155,11 @@
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        {{-- @if ($userRole->roles->nameRole == 'Admin' || $userRole->roles->nameRole == 'DG') --}}
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
-                                <i class="bi bi-gear"></i>
-                                <span>Paramètres</span>
-                            </a>
-                        </li>
-                        {{-- @endif --}}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Deconnexion</span>
                             </a>
@@ -226,8 +227,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{{ route('histoEntrees') }}">
                             <i class="bi bi-circle"></i><span>Historic des entrees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('rangura') }}">
+                            <i class="bi bi-circle"></i><span>Kurangura</span>
                         </a>
                     </li>
                 </ul>
@@ -239,40 +245,33 @@
                 </a>
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="">
+                        <a href="{{ route('productSortir') }}">
                             <i class="bi bi-circle"></i><span>Creer nouveau</span>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{{ route('sortiList') }}">
                             <i class="bi bi-circle"></i><span>Liste</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i class="bi bi-circle"></i><span>Historic des sorties</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Forms Nav -->
 
-            {{-- @if ($userRole->roles->nameRole == 'Admin' || $userRole->roles->nameRole == 'DG') --}}
+
             <li class="nav-heading">Configurations</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
+                <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
                     <i class="bi bi-person-add"></i>
                     <span>Ajouter utilisateur</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="">
-                    <i class="bi bi-gear"></i>
-                    <span>Paramètres</span>
+                <a class="nav-link collapsed" href="{{ route('category_create') }}">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Category</span>
                 </a>
-            </li><!-- End Register Page Nav -->
-            {{-- @endif --}}
-
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -364,6 +363,58 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-8">
+                                    <div class="card top-selling overflow-auto">
+                                        <div class="card-body pb-0">
+                                            <h5 class="card-title">Les utilisateurs du system</h5>
+                                            @if (session('saveProductArticle'))
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    {{ session('saveProductArticle') }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @endif
+                                            @if (session('messageEditUser'))
+                                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                    {{ session('messageEditUser') }}
+                                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                            @endif
+                                            <table class="table datatable" id="example" >
+                                                <thead style="background: #7a6161;color:white;">
+                                                    <tr>
+                                                        <th>Nom et Prenom</th>
+                                                        <th>Email</th>
+                                                        <th>Username</th>
+                                                        <th>Role</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($user as $articles)
+                                                    <tr>
+                                                        <td>{{$articles->fname}} {{$articles->lname}}</td>
+                                                        <td>{{$articles->email}}</td>
+                                                        <td>{{$articles->username}}</td>
+                                                        <td>{{$articles->Roles->name}}</td>
+                                                        <td><a href="{{route('editerUserAdmin',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td>
+                                                    </tr>
+                                                    @endforeach
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-8">
+                                                <p class="ms-3"></p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -380,25 +431,25 @@
     </footer><!-- End Footer -->
 
 
-    <!-- Vendor JS Files -->
-    <script src="HPC/assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="HPC/assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="HPC/assets/vendor/echarts/echarts.min.js"></script>
-    <script src="HPC/assets/vendor/quill/quill.min.js"></script>
-    <script src="HPC/assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="HPC/assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="HPC/assets/vendor/php-email-form/validate.js"></script>
+   <!-- Vendor JS Files -->
+   <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+   <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
 
-    <!-- Toastr-->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <!-- Toastr-->
+   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+       integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+       integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Template Main JS File -->
-    <script src="HPC/assets/js/main.js"></script>
+   <!-- Template Main JS File -->
+   <script src="{{asset('HPC/assets/js/main.js')}}"></script>
 
 </body>
 

@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Stock</title>
+    <title>Vendre</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
+   <!-- Vendor CSS Files -->
    <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -173,73 +173,194 @@
 
     </header><!-- End Header -->
 
-    <main class="main">
+   <!-- ======= Sidebar ======= -->
+   <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+                <i class="bi bi-grid"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('productListShow') }}">
+                <i class="bi bi-list"></i>
+                <span>Produits</span>
+            </a>
+        </li><!-- End list Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('produit_article') }}">
+                        <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('produit_list') }}">
+                        <i class="bi bi-circle"></i><span>Liste des articles</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productCreate') }}">
+                        <i class="bi bi-circle"></i><span>Approvisonner stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('stock') }}">
+                        <i class="bi bi-circle"></i><span>Stock actuel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('histoEntrees') }}">
+                        <i class="bi bi-circle"></i><span>Historic des entrees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('rangura') }}">
+                        <i class="bi bi-circle"></i><span>Kurangura</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productSortir') }}">
+                        <i class="bi bi-circle"></i><span>Creer nouveau</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('sortiList') }}">
+                        <i class="bi bi-circle"></i><span>Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
+
+
+        <li class="nav-heading">Configurations</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                <i class="bi bi-person-add"></i>
+                <span>Ajouter utilisateur</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('category_create') }}">
+                <i class="bi bi-diagram-3"></i>
+                <span>Category</span>
+            </a>
+        </li>
+    </ul>
+
+</aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
         <section class="section dashboard">
-            <div class="row" style="margin-top: 80px;">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
+            <div class="row">
+                <div class="col-lg-12">
                     <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-6">
+                            <div class="row">
 
-                        <div class="col-12">
-                            <div class="card top-selling">
-                                <div class="card-body pb-0">
-                                    <h5 class="card-title">Stock actuel</h5>
-                                    <table class="table table-bordeless datatable" id="example">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Produit</th>
-                                                <th scope="col">Quantite</th>
-                                                <th scope="col">Prix unitaire</th>
-                                                <th scope="col">Prix total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $total=0;
-                                            @endphp
-                                            @foreach ($product as $products)
-                                                <tr>
-                                                    <td><span style="font-weight: bold;font-size:17px;">{{$products->Produitname->nameProduct}}</span></td>
-                                                    <td>[ {{$products->quantity}} ] <span style="font-size: 7px;">Category : {{$products->Category->nameCategory}}</span></td>
-                                                    <td><span  style="font-weight: bold;background:#e6dada;padding:5px;font-size:20px;">{{number_format($products->unitPrice, 0, ',', '.')}} <span style="font-size: 10px;">Fbu</span></span></td>
-                                                    <td>{{$products->totalPrice}}</td>
-                                                    @php
-                                                        $total+=$products->totalPrice;
-                                                    @endphp
-                                                </tr>
-                                            @endforeach
+                                <div class="card top-selling overflow-auto">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Sortir pour vendre</h5>
+                                        @if (session('messageQuantite'))
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ session('messageQuantite') }}
+                                            </div>
+                                        @endif
 
+                                        <!-- Multi Columns Form -->
+                                        <form class="row g-3" name="myform" action="{{route('productSortirStore')}}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
+                                            <table class="table table-bordeless">
+                                                <thead style="background: #390101;color:white;">
+                                                    <tr>
+                                                        <th>Produit</th>
+                                                        <th>Quantite</th>
+                                                        <th><a href="javascript:void(0)"
+                                                                class="btn  btn-sm addRow" style="background: #7a6161;color:white;">+</a></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
 
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xl-8">
-                                        <p class="ms-3"></p>
+                                                        <td>
+                                                            <div class="col-md-12">
 
-                                    </div>
-                                    <div class="col-xl-3">
-                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 12px;">
-                                                Valeur du stock :</span><span
-                                                style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
-                                                Fbu</span></p>
+                                                                <select class="form-control" id=""
+                                                                    name="product_id[]">
+
+                                                                    @foreach ($product as $articles)
+                                                                        <option value="{{ $articles->Produitname->id }}">{{$articles->Produitname->nameProduct}}</option>
+                                                                    @endforeach
+
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-12">
+
+                                                                <input type="number" class="form-control"
+                                                                    id="inputName5" min="1"
+                                                                    placeholder="Quantite" name="quantite[]"
+                                                                     required>
+
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="text-center">
+                                                <button type="submit"
+                                                    class="btn w-5" style="background: #390101;color:white;">Enregistrer</button>
+                                            </div>
+                                        </form>
+                                        <!-- End Multi Columns Form -->
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-lg-2"></div>
 
 
                     </div>
                 </div>
-                <div class="col-lg-2"></div>
             </div>
         </section>
 
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <footer id="" class="footer">
+    <footer id="footer" class="footer">
         <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION STOCK</span></strong></div>
     </footer><!-- End Footer -->
 
@@ -263,6 +384,51 @@
 
     <!-- Template Main JS File -->
     <script src="{{asset('HPC/assets/js/main.js')}}"></script>
+    <script>
+        var i = 0;
+        $('thead').on('click', '.addRow', function() {
+
+            var tr = `<tr>
+                <td>
+                        <div class="col-md-12">
+
+                            <select class="form-control" id=""
+                                name="product_id[]">
+
+                                @foreach ($product as $articles)
+                                    <option value="{{ $articles->id }}">{{$articles->Produitname->nameProduct}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-md-12">
+
+                            <input type="number" class="form-control"
+                                id="inputName5" min="1"
+                                placeholder="Quantite" name="quantite[]"
+                                onkeyup="calculate(this.value)" required>
+
+                        </div>
+                    </td>
+                <td><a href="javascript:void(0)" class="btn btn-danger btn-sm deleteRow">-</a></td>
+
+                 </tr>`;
+
+            $('tbody').append(tr);
+
+        });
+
+        $('tbody').on('click', '.deleteRow', function() {
+
+            $(this).parent().parent().remove();
+        });
+    </script>
+
+
+
+
 
 </body>
 

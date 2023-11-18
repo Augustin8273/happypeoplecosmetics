@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Product;
 use App\Models\Category;
+use App\Models\Kurangura;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -10,14 +13,21 @@ class CategoryController extends Controller
     //
 public function category_create(){
     $category=Category::all();
+    $countKurangura=Kurangura::all()->count();
+    $warnCount=Product::all();
+    $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
 
-    return view('category',compact('category'));
+    return view('category',compact('category','countKurangura','warnCount','userRole'));
 }
 
 public function category_store(Request $request){
 
     $category=$request->category;
     $description=$request->description;
+    $chck=Category::where('nameCategory','=',$category)->first();
+    if($chck){
+        return back()->with('ErrorProductArticle','Desole, Categorie existe deja ! ');
+    }
     $categoryCol=new Category();
     $categoryCol->nameCategory= $category;
     if($description){
@@ -31,7 +41,10 @@ public function category_store(Request $request){
 
 public function category_update_create($id){
     $category=Category::find($id);
-    return view('categoryUpdate',compact('category'));
+    $countKurangura=Kurangura::all()->count();
+    $warnCount=Product::all();
+    $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+    return view('categoryUpdate',compact('category','countKurangura','warnCount','userRole'));
 }
 
 public function category_update(Request $request,$id){

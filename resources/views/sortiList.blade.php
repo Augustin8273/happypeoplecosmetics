@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Dashboard</title>
+    <title>Stock</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-   <!-- Vendor CSS Files -->
+    <!-- Vendor CSS Files -->
    <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
+                <img src="hpc/assets/img/hpc.png" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -50,8 +50,7 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"
+                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}"
                     title="Sortir du stock">
                     <i class="bi bi-currency-dollar"
                     style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
@@ -278,189 +277,108 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-3 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Produits <span>| En stock</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
+                        <div class="col-12">
+                            <div class="card top-selling overflow-auto">
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title">Historique des sortis du stock</h5>
+                                    <a href="{{ route('sortiList') }}"><button
+                                        class="m-2 btn btn-success">Actualiser</button></a>
+                                        @if($showButton=='no')
+                                        <a href="{{ route('SortieListExport') }}"><button
+                                            class="btn btn-" style="background: #390101;color:white;"><i class="bi bi-file-earmark-pdf"></i>Telecharger</button></a>
+                                        @endif
+                                <div class="row">
+                                    @if($showButton=='no')
+                                    <form action="{{ route('SortieListSortedByDate') }}" method="GET"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="col-lg-8 d-flex align-items-baseline">
+                                            <span style="margin-right:5px;">De:</span> <input type="date"
+                                                name="fromDate" class="form-control" style="margin-right: 5px;"
+                                                value="{{ Request::get('fromDate') }}" required>
+                                            <span style="margin-right:5px;">Jusqu'a:</span> <input type="date"
+                                                name="endDate" class="form-control" style="margin-right: 5px;"
+                                                value="{{ Request::get('endDate') }}" required>
+                                            <input type="submit" value="Rechercher" class="form-control"
+                                                style="background: #390101;color:white;">
                                         </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $countStore }}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-
+                                    </form>
+                                    @endif
+                                    @if($showButton=='yes')
+                                    <form action="{{ route('SortieListRangeExport') }}" method="GET"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="col-lg-8 d-flex align-items-baseline">
+                                            <span style="margin-right:5px;">De:</span> <input type="date"
+                                                name="fromDate" class="form-control" style="margin-right: 5px;"
+                                                value="{{ Request::get('fromDate') }}" required>
+                                            <span style="margin-right:5px;">Jusqu'a:</span> <input type="date"
+                                                name="endDate" class="form-control" style="margin-right: 5px;"
+                                                value="{{ Request::get('endDate') }}" required>
+                                            <button type="submit" class="btn btn-" style="background:#390101;color:white;">Telecharger</button>
                                         </div>
-                                    </div>
+                                    </form>
+                                    @endif
+                                    <table class="table table-bordeless datatable" id="example">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Facture</th>
+                                                <th scope="col">Produit</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Quantite</th>
+                                                <th scope="col">Prix unitaire</th>
+                                                <th scope="col">Prix total</th>
+                                                <th scope="col"><i class="bi bi-person-square"></i></th>
+                                                <th scope="col"><i class="bi bi-eye"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $total=0;
+                                            @endphp
+                                            @foreach ($product as $products)
+                                                <tr>
+                                                    <td>{{date('d-m-Y', strtotime($products->date))}}</td>
+                                                    <td>{{str_pad($products->numeroSorti , 4, '0', STR_PAD_LEFT)}}</td>
+                                                    <td>{{$products->Produitname->nameProduct}}</td>
+                                                    <td>{{$products->Category->nameCategory}}</td>
+                                                    <td>{{$products->quantity}}</td>
+                                                    <td>{{$products->unitPrice}}</td>
+                                                    <td>{{$products->totalPrice}}</td>
+                                                    <td><span style="font-size: 7px;font-family: cursive;">{{$products->User->fname}}</span></td>
+                                                    <td><a href="{{ route('bill', $products->numeroSorti) }}"><i
+                                                        class="bi bi-eye text-primary"></i></a></td>
+                                                    @php
+                                                        $total+=$products->totalPrice;
+                                                    @endphp
+                                                </tr>
+                                            @endforeach
+
+
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-3 col-md-6">
-                            <div class="card info-card revenue-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">A acheter <span>| Bientot</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-journal-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $countKurangura }}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-
-                                        </div>
+                                <div class="row">
+                                    <div class="col-xl-8">
+                                        <p class="ms-3"></p>
                                     </div>
-                                </div>
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-3 col-xl-12">
-
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Sorties<span> | facture</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-receipt"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $numberBillCount }}</h6>
-                                            <span class="text-danger small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-                                        </div>
+                                    <div class="col-xl-3">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;"><span class="text-white me-3">
+                                            Valeur des sorties :</span><span
+                                            style="font-size: 15px;color:#ffffff;">{{ number_format($total,2) }}
+                                            Fbu</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Daily income Card -->
-                        <div class="col-xxl-3 col-xl-12">
 
-                            <div class="card info-card revenue-hpc">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ventes<span> | en caisse</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
-                                        </div>
-                                        @php
-                                            $total = 0;
-                                        @endphp
-                                        @foreach ($sorti as $items)
-                                            @php
-                                                $total += $items->totalPrice;
-                                            @endphp
-                                        @endforeach
-                                        <div class="ps-3">
-                                            <span
-                                                style="font-size:20px;color:#390101;font-weight:bold;">{{ number_format($total, 1) }}
-                                                Fbu</span>
-                                            <span class="text-danger small pt-1 fw-bold"><i
-                                                    class="bi bi-clock"></i></span> <span
-                                                class="text-muted small pt-2 ps-1">Aujourd'hui</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- Daily income Card -->
                     </div>
-
-                    <!-- Start sortir Modal-->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
-                                <div class="modal-dialog ">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" style="color:#390101;">Ajout du nouveau produit a acheter bientot
-                                            </h5>
-                                            <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Multi Columns Form -->
-                                        <form class="row g-3" name="myform" action="{{route('productSortirStore')}}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <table class="table table-bordeless">
-                                            <thead style="background: #390101;color:white;">
-                                                <tr>
-                                                    <th>Produit</th>
-                                                    <th>Quantite</th>
-                                                    <th><a href="javascript:void(0)"
-                                                            class="btn  btn-sm addRow" style="background: #7a6161;color:white;">+</a></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <select class="form-control" id=""
-                                                                name="product_id[]">
-
-                                                                @foreach ($product as $articles)
-                                                                    <option value="{{ $articles->Produitname->id }}">{{$articles->Produitname->nameProduct}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <input type="number" class="form-control"
-                                                                id="inputName5" min="1"
-                                                                placeholder="Quantite" name="quantite[]"
-                                                                 required>
-
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="btn w-5" style="background: #390101;color:white;">Enregistrer</button>
-                                        </div>
-                                    </form>
-                                    <!-- End Multi Columns Form -->
-                                        </div>
-                                    </div>
-                                </div><!-- End sortir Modal-->
-
                 </div>
             </div>
         </section>
@@ -469,8 +387,7 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION
-                    STOCK</span></strong></div>
+        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION STOCK</span></strong></div>
     </footer><!-- End Footer -->
 
 
@@ -493,48 +410,6 @@
 
     <!-- Template Main JS File -->
     <script src="{{asset('HPC/assets/js/main.js')}}"></script>
-
-    <script>
-        var i = 0;
-        $('thead').on('click', '.addRow', function() {
-
-            var tr = `<tr>
-                <td>
-                        <div class="col-md-12">
-                            <select class="form-control" id=""
-                                name="product_id[]">
-
-                                @foreach ($product as $articles)
-                                    <option value="{{ $articles->id }}">{{$articles->Produitname->nameProduct}}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-md-12">
-
-                            <input type="number" class="form-control"
-                                id="inputName5" min="1"
-                                placeholder="Quantite" name="quantite[]"
-                                onkeyup="calculate(this.value)" required>
-
-                        </div>
-                    </td>
-                <td><a href="javascript:void(0)" class="btn btn-danger btn-sm deleteRow">-</a></td>
-
-                 </tr>`;
-
-            $('tbody').append(tr);
-
-        });
-
-        $('tbody').on('click', '.deleteRow', function() {
-
-            $(this).parent().parent().remove();
-        });
-    </script>
-
 </body>
 
 </html>

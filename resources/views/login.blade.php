@@ -18,18 +18,19 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="Hpc/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="Hpc/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+   <link href="{{asset('hpc/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!--Main CSS File -->
-    <link href="Hpc/assets/css/style.css" rel="stylesheet">
+   <!-- main CSS File -->
+   <link href="{{asset('hpc/assets/css/style.css')}}" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+       integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+       crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -95,17 +96,21 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="Hpc/assets/vendor/apexcharts/apexcharts.min.js"></script>
-    <script src="Hpc/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="Hpc/assets/vendor/chart.js/chart.umd.js"></script>
-    <script src="Hpc/assets/vendor/echarts/echarts.min.js"></script>
-    <script src="Hpc/assets/vendor/quill/quill.min.js"></script>
-    <script src="Hpc/assets/vendor/simple-datatables/simple-datatables.js"></script>
-    <script src="Hpc/assets/vendor/tinymce/tinymce.min.js"></script>
-    <script src="Hpc/assets/vendor/php-email-form/validate.js"></script>
+    <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
 
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Toastr-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   @if(Session::has('message'))
 

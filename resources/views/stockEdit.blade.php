@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Dashboard</title>
+    <title>Stock</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-   <!-- Vendor CSS Files -->
+    <!-- Vendor CSS Files -->
    <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
+                <img src="hpc/assets/img/hpc.png" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -50,8 +50,7 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"
+                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}"
                     title="Sortir du stock">
                     <i class="bi bi-currency-dollar"
                     style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
@@ -278,189 +277,100 @@
     </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
-
-        <div class="pagetitle">
-            <h1>Dashboard</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                </ol>
-            </nav>
-        </div><!-- End Page Title -->
-
         <section class="section dashboard">
             <div class="row">
-                <!-- Left side columns -->
                 <div class="col-lg-12">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-3 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Produits <span>| En stock</span></h5>
+                                <div class="card top-selling overflow-auto">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Modifier stock</h5>
+                                        @if (session('messageQuantite'))
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ session('messageQuantite') }}
+                                            </div>
+                                        @endif
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-cart"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $countStore }}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
+                                        <!-- Multi Columns Form -->
+                                        <form class="row g-3" name="myform" action="{{ route('stockUpdate',$ProduitStock->id) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <table class="table table-bordeless">
+                                                <thead style="background: #390101;color:white;">
+                                                    <tr>
+                                                        <th>Designation</th>
+                                                        <th>Categorie</th>
+                                                        <th>Quantite</th>
+                                                        <th>Prix unitaire</th>
 
-                                        </div>
-                                    </div>
-                                </div>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
 
-                            </div>
-                        </div><!-- End Sales Card -->
+                                                        <td>
+                                                            <div class="col-md-12">
 
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-3 col-md-6">
-                            <div class="card info-card revenue-card">
+                                                                <select class="form-control" id=""
+                                                                    name="article_id">
+                                                                    <option value="{{$ProduitStock->Produitname->id}}">{{$ProduitStock->Produitname->nameProduct}}</option>
+                                                                    @foreach ($article as $articles)
+                                                                        <option value="{{ $articles->id }}">
+                                                                            {{ $articles->nameProduct }}</option>
+                                                                    @endforeach
 
-                                <div class="card-body">
-                                    <h5 class="card-title">A acheter <span>| Bientot</span></h5>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-12">
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-journal-text"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $countKurangura }}</h6>
-                                            <span class="text-success small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
+                                                                <select class="form-control" id=""
+                                                                    name="category">
+                                                                    <option value="{{$ProduitStock->Category->id}}">{{$ProduitStock->Category->nameCategory}}</option>
+                                                                    @foreach ($category as $categories)
+                                                                        <option value="{{ $categories->id }}">
+                                                                            {{ $categories->nameCategory }}</option>
+                                                                    @endforeach
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Revenue Card -->
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-12">
 
-                        <!-- Customers Card -->
-                        <div class="col-xxl-3 col-xl-12">
+                                                                <input type="number" class="form-control"
+                                                                    id="inputName5" min="1"
+                                                                    value="{{$ProduitStock->quantity}}" name="quantite" required>
 
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Sorties<span> | facture</span></h5>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-12">
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-receipt"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $numberBillCount }}</h6>
-                                            <span class="text-danger small pt-1 fw-bold">Mis à jour</span> <span
-                                                class="text-muted small pt-2 ps-1">Today</span>
-                                        </div>
+                                                                <input type="number" class="form-control"
+                                                                    id="inputName5" min="1"
+                                                                    value="{{$ProduitStock->unitPrice}}" name="prixUnitaire" required>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <div class="text-center">
+                                                <button type="submit" class="btn w-5"
+                                                    style="background: #390101;color:white;">Modifier</button>
+                                            </div>
+                                        </form><!-- End Multi Columns Form -->
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Daily income Card -->
-                        <div class="col-xxl-3 col-xl-12">
-
-                            <div class="card info-card revenue-hpc">
-                                <div class="card-body">
-                                    <h5 class="card-title">Ventes<span> | en caisse</span></h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
-                                        </div>
-                                        @php
-                                            $total = 0;
-                                        @endphp
-                                        @foreach ($sorti as $items)
-                                            @php
-                                                $total += $items->totalPrice;
-                                            @endphp
-                                        @endforeach
-                                        <div class="ps-3">
-                                            <span
-                                                style="font-size:20px;color:#390101;font-weight:bold;">{{ number_format($total, 1) }}
-                                                Fbu</span>
-                                            <span class="text-danger small pt-1 fw-bold"><i
-                                                    class="bi bi-clock"></i></span> <span
-                                                class="text-muted small pt-2 ps-1">Aujourd'hui</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- Daily income Card -->
                     </div>
-
-                    <!-- Start sortir Modal-->
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
-                                <div class="modal-dialog ">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" style="color:#390101;">Ajout du nouveau produit a acheter bientot
-                                            </h5>
-                                            <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Multi Columns Form -->
-                                        <form class="row g-3" name="myform" action="{{route('productSortirStore')}}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <table class="table table-bordeless">
-                                            <thead style="background: #390101;color:white;">
-                                                <tr>
-                                                    <th>Produit</th>
-                                                    <th>Quantite</th>
-                                                    <th><a href="javascript:void(0)"
-                                                            class="btn  btn-sm addRow" style="background: #7a6161;color:white;">+</a></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <select class="form-control" id=""
-                                                                name="product_id[]">
-
-                                                                @foreach ($product as $articles)
-                                                                    <option value="{{ $articles->Produitname->id }}">{{$articles->Produitname->nameProduct}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <input type="number" class="form-control"
-                                                                id="inputName5" min="1"
-                                                                placeholder="Quantite" name="quantite[]"
-                                                                 required>
-
-                                                        </div>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="btn w-5" style="background: #390101;color:white;">Enregistrer</button>
-                                        </div>
-                                    </form>
-                                    <!-- End Multi Columns Form -->
-                                        </div>
-                                    </div>
-                                </div><!-- End sortir Modal-->
-
                 </div>
             </div>
         </section>
@@ -472,7 +382,6 @@
         <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION
                     STOCK</span></strong></div>
     </footer><!-- End Footer -->
-
 
     <!-- Vendor JS Files -->
     <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
@@ -493,47 +402,6 @@
 
     <!-- Template Main JS File -->
     <script src="{{asset('HPC/assets/js/main.js')}}"></script>
-
-    <script>
-        var i = 0;
-        $('thead').on('click', '.addRow', function() {
-
-            var tr = `<tr>
-                <td>
-                        <div class="col-md-12">
-                            <select class="form-control" id=""
-                                name="product_id[]">
-
-                                @foreach ($product as $articles)
-                                    <option value="{{ $articles->id }}">{{$articles->Produitname->nameProduct}}</option>
-                                @endforeach
-
-                            </select>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="col-md-12">
-
-                            <input type="number" class="form-control"
-                                id="inputName5" min="1"
-                                placeholder="Quantite" name="quantite[]"
-                                onkeyup="calculate(this.value)" required>
-
-                        </div>
-                    </td>
-                <td><a href="javascript:void(0)" class="btn btn-danger btn-sm deleteRow">-</a></td>
-
-                 </tr>`;
-
-            $('tbody').append(tr);
-
-        });
-
-        $('tbody').on('click', '.deleteRow', function() {
-
-            $(this).parent().parent().remove();
-        });
-    </script>
 
 </body>
 

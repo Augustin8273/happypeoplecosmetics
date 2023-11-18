@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'lname'=>"Abia",
             'email'=>"gakiza@gmail.com",
             'username'=>"gakiza",
-            'telephone'=>"+257 62 241 262",
+            'telephone'=>"00257 62 241 262",
             'role_id'=>1,
             'password'=>Hash::make('1234')
 

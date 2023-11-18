@@ -6,11 +6,13 @@ use Carbon\Carbon;
 use App\Models\Role;
 
 use App\Models\User;
+use App\Models\Sorti;
 use App\Models\Product;
 use App\Models\Kurangura;
 use Illuminate\Http\Request;
 use App\Models\ProductArticle;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -22,15 +24,28 @@ class UserController extends Controller
         return view('login');
     }
     public function dashboard(){
+        $fromDate = Carbon::now()->toDateString();
+        $endDate = Carbon::now()->toDateString();
+        $warnCount=Product::all();
         $countStore=Product::all()->count();
+        $product = Product::with('Produitname', 'Category')->get();
+        $sorti = Sorti::with('Produitname')->whereBetween('date',[$fromDate,$endDate])->get();
         $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
         $countKurangura=Kurangura::all()->count();
+        $stockApro=Product::where('quantity','<=',2)->count();
+        $numberBillCount = DB::table('sortis')->distinct()->count('numeroSorti');
 
-        return view('dashboard',compact('countStore','countKurangura','userRole'));
+        return view('dashboard',compact(
+            'countStore',
+            'countKurangura',
+            'userRole',
+            'numberBillCount',
+            'warnCount',
+            'sorti',
+            'product'));
     }
 
     public function login(Request $request){
-
 
         $fields = $request->validate([
             'email' => 'required',
@@ -52,15 +67,23 @@ class UserController extends Controller
         } else {
             $request->session()->put('loginId', $user->id);
             $data = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
-
+            $ck=$data->roles->name;
+            if($ck=='Inactif'){
+                return redirect()->back()->with('message', "Votre compte n'a pas droit de se connecter, veuiller contacter le Manager du Happy People Cosmetics");
+            }else{
                 return redirect()->route('dashboard');
+            }
+
         }
     }
     public function addUserCreate(){
         $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $user = User::with('roles')->get();
         $role=Role::all();
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
 
-        return view('addUser',compact('userRole','role'));
+        return view('addUser',compact('user','role','countKurangura','warnCount','userRole'));
 
     }
 
@@ -131,6 +154,41 @@ class UserController extends Controller
 
     }
 
+    public function editerUserAdmin($id){
+        $user=User::with('Roles')->where('id','=',$id)->first();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $role=Role::all();
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+
+        return view('editUser',compact('user','role','countKurangura','warnCount','userRole'));
+    }
+
+    public function editerUserAdminStore(Request $request,$id)
+    {
+                $fname=$request->fname;
+                $lname=$request->lname;
+                $username=$request->username;
+                $telephone=$request->telephone;
+                $email=$request->email;
+                $role=$request->role;
+
+                $users = User::find($id);
+                $users->fname = $fname;
+                $users->lname = $lname;
+                $users->username = $username;
+                $users->telephone = $telephone;
+                $users->email = $email;
+                $users->role_id = $role;
+                $users->save();
+
+                if ($users->save()) {
+                    return redirect()->route('addUserCreate')->with('messageEditUser', 'Utilisateur a été modifié avec succès !');
+                }
+
+
+    }
+
     public function changePassword(Request $request, $id)
     {
         $data = User::where('id', '=', $id)->first();
@@ -157,13 +215,16 @@ class UserController extends Controller
     public function Profile($id){
         $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
         $role=Role::all();
-        return view('profileUser',compact('userRole','role'));
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+
+        return view('profileUser',compact('userRole','role','countKurangura','warnCount'));
 
     }
         public function kurangura_pdf(){
             $item=Kurangura::all();
             $current=Carbon::now()->toDateString();
-            $pdf = Pdf::loadView('kuranguraPdf',['item'=>$item,'current'=>$current]);
+            $pdf = Pdf::loadView('PDF.kuranguraPdf',['item'=>$item,'current'=>$current]);
             return $pdf->download('Hpc-kurangura-Le-'.$current.'.pdf');
         }
 
@@ -177,8 +238,5 @@ class UserController extends Controller
             return redirect()->route('loginCreate');
         }
     }
-
-
-
 
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductArticleController;
+use App\Http\Controllers\SortiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,5 +61,24 @@ Route::get('/Profile/{id}',[UserController::class,'Profile'])->name('Profile');
 Route::get('/addUserCreate',[UserController::class,'addUserCreate'])->name('addUserCreate');
 Route::post('/addUser',[UserController::class,'addUser'])->name('addUser');
 Route::post('/editerUser/{id}',[UserController::class,'editerUser'])->name('editerUser');
+Route::get('/editerUserAdmin/{id}',[UserController::class,'editerUserAdmin'])->name('editerUserAdmin');
+Route::post('/editerUserAdminStore/{id}',[UserController::class,'editerUserAdminStore'])->name('editerUserAdminStore');
 Route::post('/changePassword/{id}',[UserController::class,'changePassword'])->name('changePassword');
+
+Route::get('sorti_create/',[SortiController::class,'productSortir'])->name('productSortir');
+Route::post('sorti_store/',[SortiController::class,'productSortirStore'])->name('productSortirStore');
+Route::get('sorti_list/',[SortiController::class,'sortiList'])->name('sortiList');
+Route::get('bill/{id}',[SortiController::class,'bill'])->name('bill');
+
+
+Route::get('stockEdit/{id}',[ProductController::class,'stockEdit'])->name('stockEdit');
+Route::post('stockUpdate/{id}',[ProductController::class,'stockUpdate'])->name('stockUpdate');
+Route::get('runningLowStock/',[ProductController::class,'runningLow'])->name('runningLow');
+
+
+Route::get('SortieListRangeExport/',[SortiController::class,'SortieListRangeExport'])->name('SortieListRangeExport');
+Route::get('SortieListSortedByDate/',[SortiController::class,'SortieListSortedByDate'])->name('SortieListSortedByDate');
+Route::get('SortieListExport/',[SortiController::class,'SortieListExport'])->name('SortieListExport');
+Route::get('stockListExport/',[SortiController::class,'stockListExport'])->name('stockListExport');
+Route::get('entreeListExport/',[SortiController::class,'entreeListExport'])->name('entreeListExport');
 });

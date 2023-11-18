@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProductArticle;
+use App\Models\User;
+use App\Models\Product;
+use App\Models\Kurangura;
 use Illuminate\Http\Request;
+use App\Models\ProductArticle;
 
 class ProductArticleController extends Controller
 {
@@ -11,21 +14,28 @@ class ProductArticleController extends Controller
 
     public function produit_article_create()
     {
-
-        return view('productArticle');
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        return view('productArticle',compact('countKurangura','warnCount','userRole'));
     }
 
     public function produit_article_list()
     {
-
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
         $article = ProductArticle::all();
-        return view('productArticleList', compact('article'));
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        return view('productArticleList', compact('article','countKurangura','warnCount','userRole'));
     }
 
     public function produit_article_update_create($id)
     {
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
         $article = ProductArticle::find($id);
-        return view('productArticleUpdate',compact('article'));
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        return view('productArticleUpdate',compact('article','countKurangura','warnCount','userRole'));
     }
 
     public function productArticleStore(Request $request)
