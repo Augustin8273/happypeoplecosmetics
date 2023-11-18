@@ -36,9 +36,14 @@
 
        <style>
         @media print {
+
             #printButton,
             .sidebar {
                 display: none;
+            }
+            #header th{
+                color: black;
+                font-weight: bold;
             }
         }
 
@@ -348,7 +353,7 @@
                                         </div>
                                         <div class="row my-2 mx-1 justify-content-center">
                                             <table class="table table-striped table-borderless">
-                                                <thead style="background-color:#390101;color: white;">
+                                                <thead style="background-color:#390101;color: white;" id="header">
                                                     <tr>
                                                         <th scope="col">#</th>
                                                         <th scope="col">Designation</th>
