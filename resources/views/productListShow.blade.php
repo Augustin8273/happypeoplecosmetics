@@ -220,7 +220,7 @@
                                     </div>
                                     <div class="col-xl-3">
                                         <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 12px;">
-                                                Valeur du stock :</span><span
+                                                Valeur du stock:</span><span
                                                 style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
                                                 Fbu</span></p>
                                     </div>
