@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Bill</title>
+    <title>Facture-No-{{str_pad($bill->numeroSorti , 4, '0', STR_PAD_LEFT)}}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
