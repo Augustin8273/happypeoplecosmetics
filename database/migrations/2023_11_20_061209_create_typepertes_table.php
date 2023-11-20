@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('depenses', function (Blueprint $table) {
+        Schema::create('typepertes', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
-            $table->String('Destination');
-            $table->String('Description');
-            $table->String('status')->default('0');
+            $table->string('name');
+            $table->string('status')->default('0');
             $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('depenses');
+        Schema::dropIfExists('typepertes');
     }
 };

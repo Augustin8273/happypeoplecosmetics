@@ -14,7 +14,6 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
             Role::insert(["name" =>"Manager"]);
-            Role::insert(["name" =>"Manager2"]);
             Role::insert(["name" =>"Seller"]);
             Role::insert(["name" =>"Inactif"]);
 

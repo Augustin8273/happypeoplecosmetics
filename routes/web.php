@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\PerteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductArticleController;
 use App\Http\Controllers\SortiController;
+use App\Http\Controllers\TypeperteController;
+use App\Models\Typeperte;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +85,12 @@ Route::get('SortieListSortedByDate/',[SortiController::class,'SortieListSortedBy
 Route::get('SortieListExport/',[SortiController::class,'SortieListExport'])->name('SortieListExport');
 Route::get('stockListExport/',[SortiController::class,'stockListExport'])->name('stockListExport');
 Route::get('entreeListExport/',[SortiController::class,'entreeListExport'])->name('entreeListExport');
+
+Route::get('perte_create/',[PerteController::class,'perte_create'])->name('perte_create');
+Route::post('perte_store/',[PerteController::class,'perte_store'])->name('perte_store');
+
+Route::get('type_perte_create/',[TypeperteController::class,'type_perte_create'])->name('type_perte_create');
+Route::post('type_perte_store/',[TypeperteController::class,'type_perte_store'])->name('type_perte_store');
+
+Route::get('depense_create/',[DepenseController::class,'depense_create'])->name('depense_create');
 });
