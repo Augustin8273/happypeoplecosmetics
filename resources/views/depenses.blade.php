@@ -254,6 +254,24 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('depense_create') }}">
+                        <i class="bi bi-circle"></i><span>Depenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perte_create') }}">
+                        <i class="bi bi-circle"></i><span>Pertes</span>
+                    </a>
+                </li>
+            </ul>
         </li><!-- End Forms Nav -->
 
 
@@ -271,6 +289,13 @@
                 <span>Category</span>
             </a>
         </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <span>Type de perte</span>
+        </a>
+    </li>
     </ul>
 
 </aside><!-- End Sidebar-->
@@ -278,9 +303,38 @@
     <main id="main" class="main">
         <section class="section dashboard">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-4">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+
+                    <div class="card top-selling overflow-auto">
+                        <div class="card-body pb-2">
+                            <h5 class="card-title">Depenses</h5>
+                            <form action="{{ route('DepenseListSortedByDate') }}" method="GET"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="col-lg-8 d-flex align-items-baseline">
+                                    <span style="margin-right:5px;">De:</span> <input type="date"
+                                        name="fromDate" class="form-control" style="margin-right: 5px;"
+                                        value="{{ Request::get('fromDate') }}" required>
+                                    <span style="margin-right:5px;">Jusqu'a:</span> <input type="date"
+                                        name="endDate" class="form-control" style="margin-right: 5px;"
+                                        value="{{ Request::get('endDate') }}" required>
+                                    <input type="submit" value="Rechercher" class="form-control"
+                                        style="background: #390101;color:white;">
+                                </div>
+                            </form>
+                            <h5>
+                                <a href="{{ route('depense_create') }}"><button
+                                class="m-2 btn btn-success">Actualiser</button></a>
+                            </h5>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+            <div class="row">
+                        <div class="col-lg-6">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
                                     <h5 class="card-title">Depenses</h5>
@@ -291,9 +345,9 @@
                                                 aria-label="Close"></button>
                                         </div>
                                     @endif
-                                    @if (session('updatePerte'))
+                                    @if (session('updateDepense'))
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('updatePerte') }}
+                                            {{ session('updateDepense') }}
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                         </div>
@@ -319,105 +373,68 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $totalDep=0;
+                                            @endphp
                                             @foreach ($depenses as $articles)
                                             <tr>
                                                 <td>{{date('d-m-Y', strtotime($articles->date))}}</td>
                                                 <td>{{$articles->amount}}</td>
                                                 <td>{{$articles->Destination}}</td>
                                                 <td>{{$articles->Description}}</td>
-                                                <td><a href="{{route('produit_update_create',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td>
-                                            </tr>
+                                                <td><a href="{{route('depense_edit',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td>
+                                                @php
+                                                $totalDep+=$articles->amount;
+                                                @endphp
+                                        </tr>
                                             @endforeach
-
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xl-8">
+                                    <div class="col-lg-6">
                                         <p class="ms-3"></p>
 
                                     </div>
+                                        <div class="col-lg-6">
+                                            <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;margin-right:25px;"><span class="text-white me-3" style="font-size: 10px;">
+                                            Depenses:</span><span style="font-size: 10px;color:#ffffff;">{{number_format($totalDep, 0, ',', '.')}} Fbu</span></p>
+                                        </div>
                                 </div>
                             </div>
                         </div>
 
                         {{-- SORTIS RECORD STARTS--}}
 
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <div class="card top-selling overflow-auto">
-                                <div class="card-body pb-0">
-                                    <h5 class="card-title">Historique des sortis du stock</h5>
-                                    <a href="{{ route('sortiList') }}"><button
-                                        class="m-2 btn btn-success">Actualiser</button></a>
-                                        @if($showButton=='no')
-                                        <a href="{{ route('SortieListExport') }}"><button
-                                            class="btn btn-" style="background: #390101;color:white;"><i class="bi bi-file-earmark-pdf"></i>Telecharger</button></a>
-                                        @endif
+                                <div class="card-body pb-2">
+                                    <h5 class="card-title">Historique d'entree en caisse</h5>
                                 <div class="row">
-                                    @if($showButton=='no')
-                                    <form action="{{ route('SortieListSortedByDate') }}" method="GET"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="col-lg-8 d-flex align-items-baseline">
-                                            <span style="margin-right:5px;">De:</span> <input type="date"
-                                                name="fromDate" class="form-control" style="margin-right: 5px;"
-                                                value="{{ Request::get('fromDate') }}" required>
-                                            <span style="margin-right:5px;">Jusqu'a:</span> <input type="date"
-                                                name="endDate" class="form-control" style="margin-right: 5px;"
-                                                value="{{ Request::get('endDate') }}" required>
-                                            <input type="submit" value="Rechercher" class="form-control"
-                                                style="background: #390101;color:white;">
-                                        </div>
-                                    </form>
-                                    @endif
-                                    @if($showButton=='yes')
-                                    <form action="{{ route('SortieListRangeExport') }}" method="GET"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="col-lg-8 d-flex align-items-baseline">
-                                            <span style="margin-right:5px;">De:</span> <input type="date"
-                                                name="fromDate" class="form-control" style="margin-right: 5px;"
-                                                value="{{ Request::get('fromDate') }}" required>
-                                            <span style="margin-right:5px;">Jusqu'a:</span> <input type="date"
-                                                name="endDate" class="form-control" style="margin-right: 5px;"
-                                                value="{{ Request::get('endDate') }}" required>
-                                            <button type="submit" class="btn btn-" style="background:#390101;color:white;">Telecharger</button>
-                                        </div>
-                                    </form>
-                                    @endif
                                     <table class="table table-bordeless datatable" id="example">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Facture</th>
                                                 <th scope="col">Produit</th>
-                                                <th scope="col">Category</th>
                                                 <th scope="col">Quantite</th>
-                                                <th scope="col">Prix unitaire</th>
                                                 <th scope="col">Prix total</th>
-                                                <th scope="col"><i class="bi bi-person-square"></i></th>
-                                                <th scope="col"><i class="bi bi-eye"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
-                                                $total=0;
+                                                $totalSor=0;
                                             @endphp
                                             @foreach ($sortis as $products)
                                                 <tr>
                                                     <td>{{date('d-m-Y', strtotime($products->date))}}</td>
                                                     <td>{{str_pad($products->numeroSorti , 4, '0', STR_PAD_LEFT)}}</td>
                                                     <td>{{$products->Produitname->nameProduct}}</td>
-                                                    <td>{{$products->Category->nameCategory}}</td>
                                                     <td>{{$products->quantity}}</td>
-                                                    <td>{{$products->unitPrice}}</td>
                                                     <td>{{$products->totalPrice}}</td>
-                                                    <td><span style="font-size: 7px;font-family: cursive;">{{$products->User->fname}}</span></td>
-                                                    <td><a href="{{ route('bill', $products->numeroSorti) }}"><i
-                                                        class="bi bi-eye text-primary"></i></a></td>
                                                     @php
-                                                        $total+=$products->totalPrice;
+                                                        $totalSor+=$products->totalPrice;
                                                     @endphp
                                                 </tr>
                                             @endforeach
@@ -429,21 +446,62 @@
                                 <div class="row">
                                     <div class="col-xl-8">
                                         <p class="ms-3"></p>
+
                                     </div>
-                                    <div class="col-xl-3">
-                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Valeur du stock:</span><span
-                                                style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
-                                                Fbu</span></p>
-                                    </div>
+
+                                        <div class="col-xl-3">
+                                            <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
+                                            Sortis:</span><span
+                                                    style="font-size: 10px;color:#ffffff;">{{number_format($totalSor, 0, ',', '.')}}
+                                                    Fbu</span></p>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     {{-- SORTIS RECORD ENDS--}}
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Comparaison Depenses et Ventes</h5>
+                            <table class="table table-bordeless">
+                                <thead style="background: green;color:#ffffff;">
+                                    <tr>
+                                    <th>DEPENSE</th>
+                                    <th>VENTE</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold">{{number_format($totalDep, 0, ',', '.')}} Fbu</td>
+                                        <td class="fw-bold">{{number_format($totalSor, 0, ',', '.')}} Fbu</td>
+                                        @php
+                                            $resteEnCaisse=$totalSor-$totalDep;
+                                        @endphp
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-lg-2"></div>
+                                    <div class="col-lg-8">
+                                        <p class="text-black float-end fw-bold" style="background: green;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 12px;">
+                                        Reste en caisse:</span><span
+                                                style="font-size: 12px;color:#ffffff;">{{number_format($resteEnCaisse, 0, ',', '.')}}
+                                                Fbu</span></p>
+                                    </div>
+                                    <div class="col-lg-2"></div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-4"></div>
+            </div>
+                <div class="col-lg-12">
 
                     <!-- Start approvisionnement Modal-->
                     <div class="card">
@@ -459,24 +517,24 @@
                                         </div>
                                         <div class="modal-body">
                                             <!-- Multi Columns Form -->
-                                            <form class="row g-3" action="{{route('perte_store')}}" method="POST"
+                                            <form class="row g-3" action="{{route('depense_store')}}" method="POST"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Quantite</label>
                                                     <input type="number" class="form-control" id="inputName5"
-                                                        placeholder="Quantite" name="quantite" required>
+                                                        placeholder="Quantite" name="quantite" min="1" required>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Destination</label>
                                                     <input type="text" class="form-control" id="inputName5"
-                                                        placeholder="Destination" name="Destination">
+                                                        placeholder="Destination" name="Destination" required>
                                                 </div>
 
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Description</label>
                                                     <input type="text" class="form-control" id="inputName5"
-                                                        placeholder="Description" name="Description">
+                                                        placeholder="Description" name="Description" required>
                                                 </div>
                                                 <!-- End Multi Columns Form -->
                                                 <div class="modal-footer">

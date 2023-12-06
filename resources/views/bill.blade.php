@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <base href="">
+    <base href="public/">
 
     <title>Facture-Happy-Peope-Cosmetics-No-{{str_pad($bill->numeroSorti , 4, '0', STR_PAD_LEFT)}}</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link rel="icon" type="image/png"href="HPC/assets/img/hpc.png" />
+    <link rel="icon" type="image/png" href="{{asset('HPC/assets/img/hpc.png')}}" />
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -58,7 +58,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="hpc/assets/img/hpc.png" alt="logo">
+                <img src="{{asset('HPC/assets/img/hpc.png')}}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -271,6 +271,24 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('depense_create') }}">
+                            <i class="bi bi-circle"></i><span>Depenses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('perte_create') }}">
+                            <i class="bi bi-circle"></i><span>Pertes</span>
+                        </a>
+                    </li>
+                </ul>
             </li><!-- End Forms Nav -->
 
 
@@ -288,6 +306,13 @@
                     <span>Category</span>
                 </a>
             </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+                <i class="bi bi-exclamation-octagon-fill"></i>
+                <span>Type de perte</span>
+            </a>
+        </li>
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -338,7 +363,7 @@
                                                 </div>
                                                 <div class="">
                                                     <p>
-                                                        <img src="Hpc/assets/img/hpc.png" height="70" rel="logo" alt="logo">
+                                                        <img src="{{asset('HPC/assets/img/hpc.png')}}" height="70" rel="logo" alt="logo">
                                                     </p>
                                                 </div>
                                                 <div class="">

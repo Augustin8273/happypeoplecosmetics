@@ -255,6 +255,24 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('depense_create') }}">
+                        <i class="bi bi-circle"></i><span>Depenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perte_create') }}">
+                        <i class="bi bi-circle"></i><span>Pertes</span>
+                    </a>
+                </li>
+            </ul>
         </li><!-- End Forms Nav -->
 
 
@@ -272,6 +290,13 @@
                 <span>Category</span>
             </a>
         </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <span>Type de perte</span>
+        </a>
+    </li>
     </ul>
 
 </aside><!-- End Sidebar-->
@@ -284,7 +309,7 @@
                         <div class="col-lg-8">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
-                                    <h5 class="card-title">Produits</h5>
+                                    <h5 class="card-title">Pertes</h5>
                                     @if (session('savePerte'))
                                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                                             {{ session('savePerte') }}
@@ -319,10 +344,13 @@
                                                 <th>P.total</th>
                                                 <th>T.Perte</th>
                                                 <th>Description</th>
-                                                <th>Action</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                                $totalPerte=0;
+                                            @endphp
                                             @foreach ($ProduitPerdu as $articles)
                                             <tr>
                                                 <td>{{date('d-m-Y', strtotime($articles->date))}}</td>
@@ -332,7 +360,10 @@
                                                 <td>{{$articles->totalPrice}}</td>
                                                 <td>{{$articles->Typeperte->name}}</td>
                                                 <td>{{$articles->Description}}</td>
-                                                <td><a href="{{route('produit_update_create',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td>
+                                                {{-- <td><a href="{{route('editPerte',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td> --}}
+                                                @php
+                                                    $totalPerte+=$articles->totalPrice;
+                                                @endphp
                                             </tr>
                                             @endforeach
 
@@ -344,6 +375,10 @@
                                     <div class="col-xl-8">
                                         <p class="ms-3"></p>
 
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;margin-right:25px;"><span class="text-white me-3" style="font-size: 10px;">
+                                        Pertes:</span><span style="font-size: 10px;color:#ffffff;">{{number_format($totalPerte, 0, ',', '.')}} Fbu</span></p>
                                     </div>
                                 </div>
                             </div>

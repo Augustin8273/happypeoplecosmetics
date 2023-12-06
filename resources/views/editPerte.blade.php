@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>User</title>
+    <title>Pertes</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -19,7 +19,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-   <!-- Vendor CSS Files -->
+    <!-- Vendor CSS Files -->
    <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
    <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
@@ -173,133 +173,133 @@
 
     </header><!-- End Header -->
 
-    <!-- ======= Sidebar ======= -->
-    <aside id="sidebar" class="sidebar">
+   <!-- ======= Sidebar ======= -->
+   <aside id="sidebar" class="sidebar">
 
-        <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('dashboard') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Accueil</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('productListShow') }}">
-                    <i class="bi bi-list"></i>
-                    <span>Produits</span>
-                </a>
-            </li><!-- End list Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
-                    href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
-                        class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('produit_article') }}">
-                            <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('produit_list') }}">
-                            <i class="bi bi-circle"></i><span>Liste des articles</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('productCreate') }}">
-                            <i class="bi bi-circle"></i><span>Approvisonner stock</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('stock') }}">
-                            <i class="bi bi-circle"></i><span>Stock actuel</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('histoEntrees') }}">
-                            <i class="bi bi-circle"></i><span>Historic des entrees</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('rangura') }}">
-                            <i class="bi bi-circle"></i><span>Kurangura</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Icons Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('productSortir') }}">
-                            <i class="bi bi-circle"></i><span>Creer nouveau</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('sortiList') }}">
-                            <i class="bi bi-circle"></i><span>Liste</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('depense_create') }}">
-                            <i class="bi bi-circle"></i><span>Depenses</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('perte_create') }}">
-                            <i class="bi bi-circle"></i><span>Pertes</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Forms Nav -->
-
-
-            <li class="nav-heading">Configurations</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
-                    <i class="bi bi-person-add"></i>
-                    <span>Ajouter utilisateur</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('category_create') }}">
-                    <i class="bi bi-diagram-3"></i>
-                    <span>Category</span>
-                </a>
-            </li>
+    <ul class="sidebar-nav" id="sidebar-nav">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
-                <i class="bi bi-exclamation-octagon-fill"></i>
-                <span>Type de perte</span>
+            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+                <i class="bi bi-grid"></i>
+                <span>Accueil</span>
+            </a>
+        </li><!-- End Dashboard Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('productListShow') }}">
+                <i class="bi bi-list"></i>
+                <span>Produits</span>
+            </a>
+        </li><!-- End list Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('produit_article') }}">
+                        <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('produit_list') }}">
+                        <i class="bi bi-circle"></i><span>Liste des articles</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productCreate') }}">
+                        <i class="bi bi-circle"></i><span>Approvisonner stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('stock') }}">
+                        <i class="bi bi-circle"></i><span>Stock actuel</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('histoEntrees') }}">
+                        <i class="bi bi-circle"></i><span>Historic des entrees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('rangura') }}">
+                        <i class="bi bi-circle"></i><span>Kurangura</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('productSortir') }}">
+                        <i class="bi bi-circle"></i><span>Creer nouveau</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('sortiList') }}">
+                        <i class="bi bi-circle"></i><span>Liste</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('depense_create') }}">
+                        <i class="bi bi-circle"></i><span>Depenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perte_create') }}">
+                        <i class="bi bi-circle"></i><span>Pertes</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Forms Nav -->
+
+
+        <li class="nav-heading">Configurations</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                <i class="bi bi-person-add"></i>
+                <span>Ajouter utilisateur</span>
             </a>
         </li>
-        </ul>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('category_create') }}">
+                <i class="bi bi-diagram-3"></i>
+                <span>Category</span>
+            </a>
+        </li>
 
-    </aside><!-- End Sidebar-->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <span>Type de perte</span>
+        </a>
+    </li>
+    </ul>
+
+</aside><!-- End Sidebar-->
 
     <main id="main" class="main">
         <section class="section dashboard">
@@ -311,61 +311,55 @@
 
                                 <div class="col-lg-4">
                                     <div class="row">
+
                                         <div class="card">
                                             <div class="card-body">
-                                                <h5 class="card-title" style="color: #390101;">Modifier l'utilisateur
-                                                    du logiciel</h5>
+                                              <h5 class="card-title" style="color: #390101;">Modifier la perte</h5>
+                                              @if (session('saveErrorArticleMessage'))
+                                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                                  {{ session('saveErrorArticleMessage') }}
+                                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              </div>
+                                          @endif
 
-                                                <!-- Multi Columns Form -->
-                                                <form class="row g-3" action="{{ route('editerUserAdminStore',$user->id) }}" method="POST"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
+                                              <!-- Multi Columns Form -->
+                                              <form class="row g-3" action="{{route('updatePerte',$pertes->id)}}" method="POST" enctype="multipart/form-data">
+                                                @csrf
 
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Nom</label>
-                                                        <input type="text" class="form-control" id="inputName5"
-                                                            value="{{$user->fname}}" name="fname" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Prenom</label>
-                                                        <input type="text" class="form-control" id="inputName5"
-                                                            value="{{$user->lname}}" name="lname" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Nom d'utilisateur</label>
-                                                        <input type="text" class="form-control" id="inputName5"
-                                                            value="{{$user->username}}" name="username" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Telephone</label>
-                                                        <input type="number" class="form-control" id="inputName5"
-                                                            value="{{$user->telephone}}" name="telephone" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Email</label>
-                                                        <input type="email" class="form-control" id="email"
-                                                            value="{{$user->email}}" name="email">
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="inputName5" class="form-label">Role</label>
-                                                        <select name="role" class="form-control">
-                                                            <option value="{{$user->Roles->id}}">{{$user->Roles->name}}</option>
-                                                            @foreach ($role as $roles)
-                                                                <option value="{{ $roles->id }}">
-                                                                    {{ $roles->name }}</option>
-                                                            @endforeach
+                                                <div class="col-md-12">
+                                                  <label for="inputName5" class="form-label">Produit</label>
+                                                  <select name="nameProduct" class="form-control">
+                                                    <option value="{{$pertes->Produitname->id}}">{{$pertes->Produitname->nameProduct}}</option>
+                                                    @foreach ($product as $products)
+                                                    <option value="{{$products->Produitname->id}}">{{$products->Produitname->nameProduct}}</option>
+                                                    @endforeach
+                                                  </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <label for="inputName5" class="form-label">Type de perte</label>
+                                                  <select name="typeperte" class="form-control">
+                                                    <option value="{{$pertes->Typeperte->id}}">{{$pertes->Typeperte->name}}</option>
+                                                    @foreach ($perteType as $perteType)
+                                                    <option value="{{$perteType->id}}">{{$perteType->name}}</option>
+                                                    @endforeach
+                                                  </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <label for="inputName5" class="form-label">Quantite</label>
+                                                  <input type="number" class="form-control" id="inputName5" value="{{$pertes->quantity}}" min="1" name="quantite" required>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <label for="inputName5" class="form-label">Description</label>
+                                                  <input type="text" class="form-control" id="inputName5" value="{{$pertes->Description}}" name="Description" required>
+                                                </div>
 
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="r">
-                                                        <button type="submit" class="btn btn- w-5"
-                                                            style="background:#390101;color:white;">Modifier</button>
-                                                    </div>
-                                                </form><!-- End Multi Columns Form -->
+                                                <div class="r">
+                                                  <button type="submit" class="btn btn- w-5" style="background:#390101;color:white;">Modifier</button>
+                                                </div>
+                                              </form><!-- End Multi Columns Form -->
 
                                             </div>
-                                        </div>
+                                          </div>
 
                                     </div>
                                 </div>
@@ -381,8 +375,7 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION
-                    STOCK</span></strong></div>
+        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION STOCK</span></strong></div>
     </footer><!-- End Footer -->
 
 

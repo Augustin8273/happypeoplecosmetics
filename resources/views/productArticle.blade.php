@@ -255,6 +255,24 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('depense_create') }}">
+                        <i class="bi bi-circle"></i><span>Depenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perte_create') }}">
+                        <i class="bi bi-circle"></i><span>Pertes</span>
+                    </a>
+                </li>
+            </ul>
         </li><!-- End Forms Nav -->
 
 
@@ -272,6 +290,13 @@
                 <span>Category</span>
             </a>
         </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <span>Type de perte</span>
+        </a>
+    </li>
     </ul>
 
 </aside><!-- End Sidebar-->

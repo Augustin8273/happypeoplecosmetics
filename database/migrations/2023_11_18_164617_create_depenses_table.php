@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('depenses', function (Blueprint $table) {
             $table->id();
+            $table->dateTime('date');
             $table->integer('amount');
             $table->String('Destination');
             $table->String('Description');

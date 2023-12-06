@@ -239,4 +239,14 @@ class UserController extends Controller
         }
     }
 
+    public function billtest(){
+        $pdf = Pdf::loadView('billtem');
+            return $pdf->download('Hpc-kurangura.pdf');
+
+    }
+
+    public function errorC(){
+        return view('Error400');
+    }
+
 }

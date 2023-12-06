@@ -88,9 +88,21 @@ Route::get('entreeListExport/',[SortiController::class,'entreeListExport'])->nam
 
 Route::get('perte_create/',[PerteController::class,'perte_create'])->name('perte_create');
 Route::post('perte_store/',[PerteController::class,'perte_store'])->name('perte_store');
+Route::get('editPerte/{id}',[PerteController::class,'editPerte'])->name('editPerte');
+Route::post('updatePerte/{id}',[PerteController::class,'updatePerte'])->name('updatePerte');
 
 Route::get('type_perte_create/',[TypeperteController::class,'type_perte_create'])->name('type_perte_create');
 Route::post('type_perte_store/',[TypeperteController::class,'type_perte_store'])->name('type_perte_store');
 
 Route::get('depense_create/',[DepenseController::class,'depense_create'])->name('depense_create');
+Route::post('depense_store/',[DepenseController::class,'depense_store'])->name('depense_store');
+Route::get('depense_edit/{id}',[DepenseController::class,'depense_edit'])->name('depense_edit');
+Route::post('depenseUpdate/{id}',[DepenseController::class,'depenseUpdate'])->name('depenseUpdate');
+Route::get('DepenseListSortedByDate/',[DepenseController::class,'DepenseListSortedByDate'])->name('DepenseListSortedByDate');
+
+
+Route::get('billtest/',[UserController::class,'billtest'])->name('billtest');
+Route::get('error/',[UserController::class,'errorC'])->name('error');
+
+
 });

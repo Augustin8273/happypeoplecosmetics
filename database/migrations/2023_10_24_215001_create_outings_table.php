@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->dateTime('date');
             $table->foreignId('product_Article_id')->constrained();
-            $table->integer('quantity');
+            $table->string('quantity');
             $table->integer('unitPrice');
             $table->integer('totalPrice');
             $table->integer('discount')->default(0);

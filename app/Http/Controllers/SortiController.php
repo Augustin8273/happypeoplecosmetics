@@ -112,6 +112,7 @@ class SortiController extends Controller
 
     // PDF EXPORTATION
 
+
     public function SortieListSortedByDate(Request $request)
     {
 
@@ -132,6 +133,8 @@ class SortiController extends Controller
         return redirect()->route('sortiList');
         }
     }
+
+    // PDF EXPORTATION
     public function SortieListRangeExport(Request $request)
     {
         $fromDate=$request->fromDate;

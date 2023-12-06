@@ -255,6 +255,24 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('depense_create') }}">
+                        <i class="bi bi-circle"></i><span>Depenses</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('perte_create') }}">
+                        <i class="bi bi-circle"></i><span>Pertes</span>
+                    </a>
+                </li>
+            </ul>
         </li><!-- End Forms Nav -->
 
 
@@ -272,19 +290,22 @@
                 <span>Category</span>
             </a>
         </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+            <span>Type de perte</span>
+        </a>
+    </li>
     </ul>
 
 </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
         <section class="section dashboard">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
+                      <div class="row">
                         <div class="col-lg-2"></div>
-                        <div class="col-lg-8">
-                            <div class="row">
-
+                            <div class="col-lg-8">
                                 <div class="card top-selling overflow-auto">
                                     <div class="card-body">
                                         <h5 class="card-title">Sortir pour vendre</h5>
@@ -309,52 +330,39 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-
                                                         <td>
                                                             <div class="col-md-12">
-
                                                                 <select class="form-control" id=""
                                                                     name="product_id[]">
-
                                                                     @foreach ($product as $articles)
                                                                         <option value="{{ $articles->Produitname->id }}">{{$articles->Produitname->nameProduct}}</option>
                                                                     @endforeach
-
                                                                 </select>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="col-md-12">
-
                                                                 <input type="number" class="form-control"
-                                                                    id="inputName5" min="1"
+                                                                    id="inputName5" min="1" max="100000"
                                                                     placeholder="Quantite" name="quantite[]"
                                                                      required>
-
                                                             </div>
                                                         </td>
-
                                                     </tr>
                                                 </tbody>
                                             </table>
-
                                             <div class="text-center">
                                                 <button type="submit"
                                                     class="btn w-5" style="background: #390101;color:white;">Enregistrer</button>
                                             </div>
                                         </form>
                                         <!-- End Multi Columns Form -->
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="col-lg-2"></div>
-
-
                     </div>
-                </div>
-            </div>
+
         </section>
 
     </main><!-- End #main -->
