@@ -407,7 +407,6 @@
                                 </div>
                             </div><!-- End approvisionnement Modal-->
 
-
             </div>
         </section>
 
