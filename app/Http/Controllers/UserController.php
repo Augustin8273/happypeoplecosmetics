@@ -107,7 +107,7 @@ class UserController extends Controller
 
             if ($chkemail) {
 
-                return redirect()->back()->with('messageAddUserEmail', 'votre adresse e-mail est déjà utilisée, veuillez utiliser un autre');
+                return redirect()->back()->with('messageAddUserEmail', 'votre adresse e-mail est déjà utilisé, veuillez utiliser un autre');
             } else {
                 $users = new User();
                 $users->fname = $fields['fname'];
