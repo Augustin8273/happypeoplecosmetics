@@ -42,7 +42,7 @@
                 class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                 <div class="container">
                     <div class="row justify-content-center">
-                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center border border-white">
 
                             <div class="d-flex justify-content-center py-4">
                                 <img src="Hpc/assets/img/hpc.png" height="130" rel="logo" alt="logo">
