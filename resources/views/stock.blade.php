@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="hpc/assets/img/hpc.png" alt="logo">
+                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -62,10 +62,7 @@
                     @foreach ($warnCount as $items)
                         @php
                             $QResta = $items->quantity;
-                            $QTot = $items->status;
-                            $QPourc = $QResta / $QTot;
-                            $QPourcRest = $QPourc * 100;
-                            if ($QPourcRest < 30) {
+                            if ($QResta < 2) {
                                 $countW++;
                             }
                         @endphp
@@ -73,13 +70,13 @@
 
                     @if ($countW)
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="Stock dessous de 30 %">
+                            title="low stock">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-danger badge-number">{{ $countW }}</span>
                         </a>
                     @else
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="Stock dessous de 30 %">
+                            title="low stock">
                             <i class="bi bi-bell"></i>
 
                         </a>
@@ -116,8 +113,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            Vous avez <span class="badge bg-success">{{ $countKurangura }}</span> produits a acheter a
-                            venir !
+                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans l'avenir
                             <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
                                     tout</span></a>
                         </li>
@@ -327,6 +323,8 @@
                                         <tbody>
                                             @php
                                                 $total=0;
+                                                $profit=0;
+                                                $achat=0;
                                             @endphp
                                             @foreach ($product as $products)
                                                 <tr>
@@ -339,6 +337,15 @@
                                                         class="bi bi-pencil text-success"></i></a></td>
                                                     @php
                                                         $total+=$products->totalPrice;
+                                                        $quantity=$products->quantity;
+                                                        $WholeSale=$products->Produitname->wholeSalePrice;
+                                                        $SellingPrice=$products->unitPrice;
+                                                        $aimedProfit=$SellingPrice-$WholeSale;
+                                                        $capital1=$WholeSale*$quantity;
+                                                        $profit1=$aimedProfit*$quantity;
+                                                        $achat+=$capital1;
+                                                        $profit+=$profit1;
+
                                                     @endphp
                                                 </tr>
                                             @endforeach
@@ -347,13 +354,21 @@
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xl-8">
-                                        <p class="ms-3"></p>
-
+                                    <div class="col-xl-3">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
+                                                Capital :</span><span
+                                                style="font-size: 12px;color:#ffffff;">{{number_format($achat, 0, ',', '.')}}
+                                                Fbu</span></p>
                                     </div>
                                     <div class="col-xl-3">
                                         <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Valeur du stock:</span><span
+                                                Profit :</span><span
+                                                style="font-size: 12px;color:#ffffff;">{{number_format($profit, 0, ',', '.')}}
+                                                Fbu</span></p>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
+                                                Valeur du stock :</span><span
                                                 style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
                                                 Fbu</span></p>
                                     </div>

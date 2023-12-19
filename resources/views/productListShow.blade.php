@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="hpc/assets/img/hpc.png" alt="logo">
+                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <a href="{{ route('dashboard') }}" ><span class="d-none d-lg-block fw-bold" style="color: #390101;">
@@ -63,10 +63,7 @@
                     @foreach ($warnCount as $items)
                         @php
                             $QResta = $items->quantity;
-                            $QTot = $items->status;
-                            $QPourc = $QResta / $QTot;
-                            $QPourcRest = $QPourc * 100;
-                            if ($QPourcRest < 30) {
+                            if ($QResta < 2) {
                                 $countW++;
                             }
                         @endphp
@@ -74,13 +71,13 @@
 
                     @if ($countW)
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="Stock dessous de 30 %">
+                            title="low stock">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-danger badge-number">{{ $countW }}</span>
                         </a>
                     @else
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="Stock dessous de 30 %">
+                            title="low stock">
                             <i class="bi bi-bell"></i>
 
                         </a>
@@ -117,8 +114,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            Vous avez <span class="badge bg-success">{{ $countKurangura }}</span> produits a acheter a
-                            venir !
+                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans l'avenir
                             <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
                                     tout</span></a>
                         </li>
