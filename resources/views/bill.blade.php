@@ -115,12 +115,12 @@
                 <li class="nav-item dropdown">
 
                     @if ($countKurangura)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number"></span>
                         </a>

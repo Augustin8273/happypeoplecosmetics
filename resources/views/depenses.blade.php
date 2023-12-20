@@ -98,12 +98,12 @@
                 <li class="nav-item dropdown">
 
                     @if ($countKurangura)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number"></span>
                         </a>
@@ -127,7 +127,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="hpc/assets/img/user.png"alt="Profile" class="rounded-circle">
+                        <img src="{{asset('hpc/assets/img/user.png')}}"alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -440,12 +440,12 @@
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xl-8">
+                                    <div class="col-xl-6">
                                         <p class="ms-3"></p>
 
                                     </div>
 
-                                        <div class="col-xl-3">
+                                        <div class="col-xl-6">
                                             <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
                                             Sortis:</span><span
                                                     style="font-size: 10px;color:#ffffff;">{{number_format($totalSor, 0, ',', '.')}}
@@ -499,14 +499,14 @@
             </div>
                 <div class="col-lg-12">
 
-                    <!-- Start approvisionnement Modal-->
+                    <!-- Start depense Modal-->
                     <div class="card">
                         <div class="card-body">
                             <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
                                 <div class="modal-dialog ">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" style="color:#390101;">Ajout de la perte
+                                            <h5 class="modal-title" style="color:#390101;">Ajout de depense
                                             </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
@@ -517,9 +517,9 @@
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="col-md-4">
-                                                    <label for="inputName5" class="form-label">Quantite</label>
+                                                    <label for="inputName5" class="form-label">Montant</label>
                                                     <input type="number" class="form-control" id="inputName5"
-                                                        placeholder="Quantite" name="quantite" min="1" required>
+                                                        placeholder="Montant" name="quantite" min="1" required>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label for="inputName5" class="form-label">Destination</label>
@@ -544,7 +544,7 @@
                                             </form><!-- End Multi Columns Form -->
                                         </div>
                                     </div>
-                                </div><!-- End approvisionnement Modal-->
+                                </div><!-- End depense Modal-->
                             </div>
                         </div>
                     </div>

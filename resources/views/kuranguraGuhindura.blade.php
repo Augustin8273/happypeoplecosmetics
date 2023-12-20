@@ -99,12 +99,12 @@
                 <li class="nav-item dropdown">
 
                     @if ($countKurangura)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number"></span>
                         </a>
@@ -128,7 +128,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="hpc/assets/img/user.png"alt="Profile" class="rounded-circle">
+                        <img src="{{asset('hpc/assets/img/user.png')}}"alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 

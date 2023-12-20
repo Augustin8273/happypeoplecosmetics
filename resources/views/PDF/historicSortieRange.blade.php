@@ -67,6 +67,8 @@
             @php
                 $i = 1;
                 $total = 0;
+                $profit=0;
+                $achat=0;
             @endphp
             @foreach ($product as $items)
                 <tr>
@@ -82,6 +84,15 @@
                     @php
                         $totals = $items->totalPrice;
                         $total += $totals;
+
+                        $quantity=$items->quantity;
+                        $WholeSale=$items->Produitname->wholeSalePrice;
+                        $SellingPrice=$items->unitPrice;
+                        $aimedProfit=$SellingPrice-$WholeSale;
+                        $capital1=$WholeSale*$quantity;
+                        $profit1=$aimedProfit*$quantity;
+                        $achat+=$capital1;
+                        $profit+=$profit1;
                     @endphp
 
                 </tr>
@@ -89,10 +100,15 @@
             @endif
             <tr><td colspan="9"></td></tr>
             <tr>
-                <td colspan="5"></td>
-                <td colspan="4">
+                <td colspan="3"><span style="padding:6px;color:white;background:#390101;">
+                    Capital : {{ number_format($achat,2) }}
+                    Fbu</span></td>
+                <td colspan="3"><span style="padding:6px;color:white;background:#390101;">
+                    Profit : {{ number_format($profit,2) }}
+                    Fbu</span></td>
+                <td colspan="3">
                     <span style="padding:6px;color:white;background:#390101;">
-                        Valeur des sorties : {{ number_format($total,2) }}
+                        Valeur Total : {{ number_format($total,2) }}
                         Fbu</span>
                 </td>
             </tr>

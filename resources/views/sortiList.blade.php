@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="{{asset('{{asset('hpc/assets/img/hpc.png')}}')}}" alt="logo">
+                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -99,12 +99,12 @@
                 <li class="nav-item dropdown">
 
                     @if ($countKurangura)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number">{{ $countKurangura }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Nouvelle commande">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="Ibirangurwa">
                             <i class="bi bi-chat-left-text"></i>
                             <span class="badge bg-success badge-number"></span>
                         </a>
@@ -128,7 +128,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="hpc/assets/img/user.png"alt="Profile" class="rounded-circle">
+                        <img src="{{asset('hpc/assets/img/user.png')}}"alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -362,6 +362,8 @@
                                         <tbody>
                                             @php
                                                 $total=0;
+                                                $profit=0;
+                                                $achat=0;
                                             @endphp
                                             @foreach ($product as $products)
                                                 <tr>
@@ -376,7 +378,17 @@
                                                     <td><a href="{{ route('bill', $products->numeroSorti) }}"><i
                                                         class="bi bi-eye text-primary"></i></a></td>
                                                     @php
+
                                                         $total+=$products->totalPrice;
+                                                        $quantity=$products->quantity;
+                                                        $WholeSale=$products->Produitname->wholeSalePrice;
+                                                        $SellingPrice=$products->unitPrice;
+                                                        $aimedProfit=$SellingPrice-$WholeSale;
+                                                        $capital1=$WholeSale*$quantity;
+                                                        $profit1=$aimedProfit*$quantity;
+                                                        $achat+=$capital1;
+                                                        $profit+=$profit1;
+
                                                     @endphp
                                                 </tr>
                                             @endforeach
@@ -386,12 +398,21 @@
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xl-8">
-                                        <p class="ms-3"></p>
+                                    <div class="col-xl-3">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
+                                                Capital :</span><span
+                                                style="font-size: 12px;color:#ffffff;">{{number_format($achat, 0, ',', '.')}}
+                                                Fbu</span></p>
                                     </div>
                                     <div class="col-xl-3">
                                         <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Valeur des sortis:</span><span
+                                                Profit :</span><span
+                                                style="font-size: 12px;color:#ffffff;">{{number_format($profit, 0, ',', '.')}}
+                                                Fbu</span></p>
+                                    </div>
+                                    <div class="col-xl-3">
+                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
+                                                Total Vente :</span><span
                                                 style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
                                                 Fbu</span></p>
                                     </div>
