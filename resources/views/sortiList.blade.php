@@ -242,7 +242,7 @@
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="{{ route('productSortir') }}">
-                            <i class="bi bi-circle"></i><span>Creer nouveau</span>
+                            <i class="bi bi-circle"></i><span>Vendre</span>
                         </a>
                     </li>
                     <li>
@@ -274,12 +274,14 @@
 
             <li class="nav-heading">Configurations</li>
 
+            @if ($userRole->roles->name == 'Manager')
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
                     <i class="bi bi-person-add"></i>
                     <span>Ajouter utilisateur</span>
                 </a>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('category_create') }}">
                     <i class="bi bi-diagram-3"></i>

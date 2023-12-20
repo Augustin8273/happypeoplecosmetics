@@ -19,20 +19,20 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-   <!-- Vendor CSS Files -->
-   <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="{{ asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-   <!-- main CSS File -->
-   <link href="{{asset('hpc/assets/css/style.css')}}" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-       integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-       crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- main CSS File -->
+    <link href="{{ asset('hpc/assets/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
+                <img src="{{ asset('hpc/assets/img/hpc.png') }}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -50,12 +50,11 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}" data-bs-toggle="modal"
-                    data-bs-target="#basicModal"
-                    title="Sortir du stock">
-                    <i class="bi bi-currency-dollar"
-                    style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
-                </a></li>
+                <li><a class="nav-link nav-icon" href="{{ route('productSortir') }}" data-bs-toggle="modal"
+                        data-bs-target="#basicModal" title="Sortir du stock">
+                        <i class="bi bi-currency-dollar"
+                            style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
+                    </a></li>
                 <li class="nav-item dropdown">
                     @php
                         $countW = 0;
@@ -70,14 +69,12 @@
                     @endforeach
 
                     @if ($countW)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="low stock">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="low stock">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-danger badge-number">{{ $countW }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="low stock">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="low stock">
                             <i class="bi bi-bell"></i>
 
                         </a>
@@ -114,7 +111,8 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans l'avenir
+                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans
+                            l'avenir
                             <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
                                     tout</span></a>
                         </li>
@@ -129,7 +127,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="{{('hpc/assets/img/user.png')}}"alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('hpc/assets/img/user.png') }}"alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -243,7 +241,7 @@
                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
                         <a href="{{ route('productSortir') }}">
-                            <i class="bi bi-circle"></i><span>Creer nouveau</span>
+                            <i class="bi bi-circle"></i><span>Vendre</span>
                         </a>
                     </li>
                     <li>
@@ -255,8 +253,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -275,12 +275,14 @@
 
             <li class="nav-heading">Configurations</li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
-                    <i class="bi bi-person-add"></i>
-                    <span>Ajouter utilisateur</span>
-                </a>
-            </li>
+            @if ($userRole->roles->name == 'Manager')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                        <i class="bi bi-person-add"></i>
+                        <span>Ajouter utilisateur</span>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('category_create') }}">
                     <i class="bi bi-diagram-3"></i>
@@ -288,12 +290,12 @@
                 </a>
             </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
-                <i class="bi bi-exclamation-octagon-fill"></i>
-                <span>Type de perte</span>
-            </a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                    <span>Type de perte</span>
+                </a>
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -417,72 +419,78 @@
                     </div>
 
                     <!-- Start sortir Modal-->
-                <div class="card">
+                    <div class="card">
                         <div class="card-body">
                             <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
                                 <div class="modal-dialog ">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" style="color:#390101;">Ajout du nouveau produit a acheter bientot
+                                            <h5 class="modal-title" style="color:#390101;">Ajout du nouveau produit a
+                                                acheter bientot
                                             </h5>
-                                            <button type="button" class="btn-close text-danger" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+                                            <button type="button" class="btn-close text-danger"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <!-- Multi Columns Form -->
-                                        <form class="row g-3" name="myform" action="{{route('productSortirStore')}}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <table class="table table-bordeless">
-                                            <thead style="background: #390101;color:white;">
-                                                <tr>
-                                                    <th>Produit</th>
-                                                    <th>Quantite</th>
-                                                    <th><a href="javascript:void(0)"
-                                                            class="btn  btn-sm addRow" style="background: #7a6161;color:white;">+</a></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <div class="col-md-12">
+                                            <form class="row g-3" name="myform"
+                                                action="{{ route('productSortirStore') }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <table class="table table-bordeless">
+                                                    <thead style="background: #390101;color:white;">
+                                                        <tr>
+                                                            <th>Produit</th>
+                                                            <th>Quantite</th>
+                                                            <th><a href="javascript:void(0)"
+                                                                    class="btn  btn-sm addRow"
+                                                                    style="background: #7a6161;color:white;">+</a></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="col-md-12">
 
-                                                            <select class="form-control" id=""
-                                                                name="product_id[]">
+                                                                    <select class="form-control" id=""
+                                                                        name="product_id[]">
 
-                                                                @foreach ($product as $articles)
-                                                                    <option value="{{ $articles->Produitname->id }}">{{$articles->Produitname->nameProduct}}</option>
-                                                                @endforeach
+                                                                        @foreach ($product as $articles)
+                                                                            <option
+                                                                                value="{{ $articles->Produitname->id }}">
+                                                                                {{ $articles->Produitname->nameProduct }}
+                                                                            </option>
+                                                                        @endforeach
 
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="col-md-12">
 
-                                                            <input type="number" class="form-control"
-                                                                id="inputName5" min="1"
-                                                                placeholder="Quantite" name="quantite[]"
-                                                                 required>
+                                                                    <input type="number" class="form-control"
+                                                                        id="inputName5" min="1"
+                                                                        placeholder="Quantite" name="quantite[]"
+                                                                        required>
 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
 
-                                        <div class="text-center">
-                                            <button type="submit"
-                                                class="btn w-5" style="background: #390101;color:white;">Enregistrer</button>
+                                                <div class="text-center">
+                                                    <button type="submit" class="btn w-5"
+                                                        style="background: #390101;color:white;">Enregistrer</button>
+                                                </div>
+                                            </form>
+                                            <!-- End Multi Columns Form -->
                                         </div>
-                                    </form>
-                                    <!-- End Multi Columns Form -->
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End sortir Modal-->
+                            </div><!-- End sortir Modal-->
+                        </div>
                     </div>
-               </div>
         </section>
 
     </main><!-- End #main -->
@@ -495,14 +503,14 @@
 
 
     <!-- Vendor JS Files -->
-    <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
+    <script src="{{ asset('HPC/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Toastr-->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -512,7 +520,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{asset('HPC/assets/js/main.js')}}"></script>
+    <script src="{{ asset('HPC/assets/js/main.js') }}"></script>
 
     <script>
         var i = 0;
@@ -525,7 +533,7 @@
                                 name="product_id[]">
 
                                 @foreach ($product as $articles)
-                                    <option value="{{ $articles->id }}">{{$articles->Produitname->nameProduct}}</option>
+                                    <option value="{{ $articles->id }}">{{ $articles->Produitname->nameProduct }}</option>
                                 @endforeach
 
                             </select>
