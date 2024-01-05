@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Product</title>
+    <title>Stock</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -169,193 +169,189 @@
 
     </header><!-- End Header -->
 
-   <!-- ======= Sidebar ======= -->
-   <aside id="sidebar" class="sidebar">
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Accueil</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('productListShow') }}">
+                    <i class="bi bi-list"></i>
+                    <span>Produits</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('stockListSortir') }}">
+                    <i class="bi bi-currency-dollar"></i>
+                    <span>Vendre</span>
+                </a>
+            </li><!-- End list Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('produit_article') }}">
+                            <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('produit_list') }}">
+                            <i class="bi bi-circle"></i><span>Liste des articles</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('productCreate') }}">
+                            <i class="bi bi-circle"></i><span>Approvisonner stock</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('stock') }}">
+                            <i class="bi bi-circle"></i><span>Stock actuel</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('histoEntrees') }}">
+                            <i class="bi bi-circle"></i><span>Historic des entrees</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('rangura') }}">
+                            <i class="bi bi-circle"></i><span>Kurangura</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Icons Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('productSortir') }}">
+                            <i class="bi bi-circle"></i><span>Vendre</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('sortiList') }}">
+                            <i class="bi bi-circle"></i><span>Liste</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('depense_create') }}">
+                            <i class="bi bi-circle"></i><span>Depenses</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('perte_create') }}">
+                            <i class="bi bi-circle"></i><span>Pertes</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Forms Nav -->
+
+
+            <li class="nav-heading">Configurations</li>
+
+            @if ($userRole->roles->name == 'Manager')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                    <i class="bi bi-person-add"></i>
+                    <span>Ajouter utilisateur</span>
+                </a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('category_create') }}">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Category</span>
+                </a>
+            </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('dashboard') }}">
-                <i class="bi bi-grid"></i>
-                <span>Accueil</span>
-            </a>
-        </li><!-- End Dashboard Nav -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('productListShow') }}">
-                <i class="bi bi-list"></i>
-                <span>Produits</span>
+            <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+                <i class="bi bi-exclamation-octagon-fill"></i>
+                <span>Type de perte</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('stockListSortir') }}">
-                <i class="bi bi-currency-dollar"></i>
-                <span>Vendre</span>
-            </a>
-        </li><!-- End list Nav -->
+        </ul>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
-                href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Articles</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('produit_article') }}">
-                        <i class="bi bi-circle"></i><span>Entrer nouveau article</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('produit_list') }}">
-                        <i class="bi bi-circle"></i><span>Liste des articles</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Components Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-gem"></i><span>Stock</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('productCreate') }}">
-                        <i class="bi bi-circle"></i><span>Approvisonner stock</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('stock') }}">
-                        <i class="bi bi-circle"></i><span>Stock actuel</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('histoEntrees') }}">
-                        <i class="bi bi-circle"></i><span>Historic des entrees</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('rangura') }}">
-                        <i class="bi bi-circle"></i><span>Kurangura</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Icons Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Sorties</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('productSortir') }}">
-                        <i class="bi bi-circle"></i><span>Vendre</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('sortiList') }}">
-                        <i class="bi bi-circle"></i><span>Liste</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('depense_create') }}">
-                        <i class="bi bi-circle"></i><span>Depenses</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('perte_create') }}">
-                        <i class="bi bi-circle"></i><span>Pertes</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Forms Nav -->
-
-
-        <li class="nav-heading">Configurations</li>
-
-        @if ($userRole->roles->name == 'Manager')
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
-                <i class="bi bi-person-add"></i>
-                <span>Ajouter utilisateur</span>
-            </a>
-        </li>
-        @endif
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('category_create') }}">
-                <i class="bi bi-diagram-3"></i>
-                <span>Category</span>
-            </a>
-        </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
-            <i class="bi bi-exclamation-octagon-fill"></i>
-            <span>Type de perte</span>
-        </a>
-    </li>
-    </ul>
-
-</aside><!-- End Sidebar-->
+    </aside><!-- End Sidebar-->
 
     <main id="main" class="main">
         <section class="section dashboard">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
 
-                                <div class="col-lg-4">
-                                    <div class="row">
+                        <div class="col-12">
+                            <div class="card top-selling overflow-auto">
+                                <div class="card-body pb-0">
+                                    <h5 class="card-title">Stock actuel</h5>
+                                    <table class="table table-bordeless datatable" id="example">
+                                        <form method="POST" action="" enctype="multipart/form-data">
+                                            @csrf
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Produit</th>
+                                                <th scope="col">Categorie</th>
+                                                <th scope="col">Quantite</th>
+                                                <th scope="col">Prix unitaire</th>
+                                                <th scope="col">Prix total</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                        <div class="card">
-                                            <div class="card-body">
-                                              <h5 class="card-title" style="color: #390101;">Ajouter le nom du produit</h5>
-                                              @if (session('saveErrorArticleMessage'))
-                                              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                                  {{ session('saveErrorArticleMessage') }}
-                                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                              </div>
-                                          @endif
+                                            @foreach ($product as $products)
+                                                <tr>
+                                                    <td><span style="font-weight: bold;">{{$products->Produitname->nameProduct}}</span></td>
+                                                    <td><span style="font-size: 10px;">({{$products->Category->nameCategory}})</span></td>
+                                                    <td>{{$products->quantity}}</td>
+                                                    <td>{{$products->unitPrice}}</td>
+                                                    <td>{{$products->totalPrice}}</td>
+                                                    <td><a href="{{ route('stockListSortirVendreRedirectPage', $products->product_Article_id) }}" class="btn btn-success">Vendre</a></td>
 
-                                              <!-- Multi Columns Form -->
-                                              <form class="row g-3" action="{{route('productStore')}}" method="POST" enctype="multipart/form-data">
-                                                @csrf
+                                                </tr>
+                                            @endforeach
 
-                                                <div class="col-md-12">
-                                                  <label for="inputName5" class="form-label">Nom du produit</label>
-                                                  <input type="text" class="form-control" id="inputName5" placeholder="Nom du produit" name="nameProduct" required>
-                                                </div>
-                                                <div class="col-md-12">
-                                                  <label for="inputName5" class="form-label">Prix d'Achat</label>
-                                                  <input type="number" class="form-control" id="inputName5" placeholder="Prix d'Achat" name="wholeSalePrice" min="1" required>
-                                                </div>
-                                                <div class="col-md-12">
-                                                  <label for="inputName5" class="form-label">Discount</label>
-                                                  <input type="number" class="form-control" id="inputName5" placeholder="Discount" min="1" name="discount">
-                                                </div>
-
-                                                <div class="r">
-                                                  <button type="submit" class="btn btn- w-5" style="background:#390101;color:white;">Enregistrer</button>
-                                                </div>
-                                              </form><!-- End Multi Columns Form -->
-
-                                            </div>
-                                          </div>
-
-                                    </div>
+                                        </tbody>
+                                    </table>
                                 </div>
-
+                            </form>
                             </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -388,6 +384,55 @@
 
     <!-- Template Main JS File -->
     <script src="{{asset('HPC/assets/js/main.js')}}"></script>
+
+    <script>
+        var i = 0;
+        $('thead').on('click', '.addRow', function() {
+
+            var tr = `<tr>
+                <td>
+                         <div class="col-md-12">
+
+                            <select class="form-control" id=""
+                                name="category_id[]">
+
+                            </select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-12">
+
+                                <input type="number" class="form-control" id="inputName5"
+                                min="1" placeholder="Quantite"
+                                name="quantite[]" onkeyup="calculate(this.value)"
+                                required>
+
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-12">
+
+                                <input type="number" class="form-control" id="inputName5"
+                                min="1" placeholder="Prix unitaire"
+                                name="prixUnitaire[]" onkeyup="calculate(this.value)"
+                                required>
+
+                            </div>
+                        </td>
+
+                <td><a href="javascript:void(0)" class="btn btn-danger btn-sm deleteRow">-</a></td>
+
+                 </tr>`;
+
+            $('tbody').append(tr);
+
+        });
+
+        $('tbody').on('click', '.deleteRow', function() {
+
+            $(this).parent().parent().remove();
+        });
+    </script>
 
 </body>
 

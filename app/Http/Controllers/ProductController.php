@@ -248,6 +248,18 @@ class ProductController extends Controller
         return redirect()->back()->with('saveProductArticle', 'Mwafuse neza urupapuro rw' . 'ibirangurwa');
     }
 
+    public function stockListSortir()
+    {
+
+        $article = ProductArticle::all();
+        $category = Category::all();
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $product = Product::with('Produitname', 'Category')->get();
+        return view('sortirRecherche', compact('product', 'article', 'category','countKurangura','warnCount','userRole'));
+    }
+
 
 
 

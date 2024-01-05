@@ -186,6 +186,12 @@
                     <i class="bi bi-list"></i>
                     <span>Produits</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('stockListSortir') }}">
+                    <i class="bi bi-currency-dollar"></i>
+                    <span>Vendre</span>
+                </a>
             </li><!-- End list Nav -->
 
             <li class="nav-item">

@@ -34,6 +34,9 @@
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
         <h1>404</h1>
         <h2>Desole, un probleme est survenu en ouvrant cette page,veuillez reesayer plus tard.</h2>
+        <h2>Lorsque cet empecehement survient quand vous effectue une operation de sortie, </h2>
+        <h2>veuillez sortir un element pour chaque facture en utilisant l'option <strong>$Vendre</strong> dans le Menu a gauche</h2>
+        <h2>pour vous faciliter la recherche .</h2>
         <h2>Merci</h2>
         <a class="btn" href="{{ route('dashboard') }}">Retourner a l'accueil</a>
         <img src="hpc/assets/img/not-found.svg" alt="Page Not Found" height="100">
