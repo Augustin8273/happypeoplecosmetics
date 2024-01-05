@@ -27,6 +27,16 @@ class ProductController extends Controller
         return view('addProduct', compact('article', 'category','countKurangura','warnCount','userRole'));
     }
 
+    public function productCreateRecherche($id)
+    {
+        $category = Category::all();
+        $article = ProductArticle::where('id','=',$id)->first();
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        return view('approvisionerRecherche', compact('article', 'category','countKurangura','warnCount','userRole'));
+    }
+
     public function stockList()
     {
 

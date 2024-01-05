@@ -28,12 +28,12 @@ class Handler extends ExceptionHandler
         });
     }
 
-    public function render($request, Throwable $e)
-    {
-        if($this->isHttpException($e)){
-            return response()->view('Error400');
-        }else{
-            return response()->view('Error400');
-        }
-    }
+    // public function render($request, Throwable $e)
+    // {
+    //     if($this->isHttpException($e)){
+    //         return response()->view('Error400');
+    //     }else{
+    //         return response()->view('Error400');
+    //     }
+    // }
 }

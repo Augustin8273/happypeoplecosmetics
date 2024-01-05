@@ -343,6 +343,7 @@
                                                 <th>Prix d'achat</th>
                                                 <th>Discount</th>
                                                 <th>Action</th>
+                                                <th>🏪</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -352,6 +353,7 @@
                                                 <td>{{$articles->wholeSalePrice}}</td>
                                                 <td>{{$articles->discount}}</td>
                                                 <td><a href="{{route('produit_update_create',$articles->id)}}"><i class="bi bi-pencil-square"></i></a></td>
+                                                <td><a href="{{route('productCreateRecherche',$articles->id)}}" class="btn btn-success">Aprovis..</a></td>
                                             </tr>
                                             @endforeach
 

@@ -78,6 +78,7 @@ Route::get('bill/{id}',[SortiController::class,'bill'])->name('bill');
 Route::get('stockEdit/{id}',[ProductController::class,'stockEdit'])->name('stockEdit');
 Route::post('stockUpdate/{id}',[ProductController::class,'stockUpdate'])->name('stockUpdate');
 Route::get('runningLowStock/',[ProductController::class,'runningLow'])->name('runningLow');
+Route::get('approv_product/{id}',[ProductController::class,'productCreateRecherche'])->name('productCreateRecherche');
 
 
 Route::get('SortieListRangeExport/',[SortiController::class,'SortieListRangeExport'])->name('SortieListRangeExport');
