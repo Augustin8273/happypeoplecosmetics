@@ -188,7 +188,7 @@
                                                 <th scope="col">Categorie</th>
                                                 <th scope="col">Quantite</th>
                                                 <th scope="col">Prix unitaire</th>
-                                                <th scope="col">Prix total</th>
+                                                <th scope="col">Valeur</th>
                                             </tr>
                                         </thead>
                                         <tbody>
