@@ -365,6 +365,7 @@
                                                 <th scope="col">Prix total</th>
                                                 <th scope="col"><i class="bi bi-person-square"></i></th>
                                                 <th scope="col"><i class="bi bi-eye"></i></th>
+                                                <th scope="col"><i class="bi bi-gear"></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -385,6 +386,8 @@
                                                     <td><span style="font-size: 7px;font-family: cursive;">{{$products->User->fname}}</span></td>
                                                     <td><a href="{{ route('bill', $products->numeroSorti) }}"><i
                                                         class="bi bi-eye text-primary"></i></a></td>
+                                                        <td><a href="{{ route('changeCancelRedirectPage', $products->id) }}"><i
+                                                        class="bi bi-gear text-primary"></i></a></td>
                                                     @php
 
                                                         $total+=$products->totalPrice;

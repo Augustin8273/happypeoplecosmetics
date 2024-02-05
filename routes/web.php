@@ -91,6 +91,9 @@ Route::get('stockListSortir/',[ProductController::class,'stockListSortir'])->nam
 Route::post('productRechercheSortirStore/{id}',[SortiController::class,'productRechercheSortirStore'])->name('productRechercheSortirStore');
 Route::get('stockListSortirVendreRedirectPage/{id}',[SortiController::class,'stockListSortirVendreRedirectPage'])->name('stockListSortirVendreRedirectPage');
 
+
+Route::get('Sorti_change/{id}',[SortiController::class,'changeCancelRedirectPage'])->name('changeCancelRedirectPage');
+
 Route::get('perte_create/',[PerteController::class,'perte_create'])->name('perte_create');
 Route::post('perte_store/',[PerteController::class,'perte_store'])->name('perte_store');
 Route::get('editPerte/{id}',[PerteController::class,'editPerte'])->name('editPerte');

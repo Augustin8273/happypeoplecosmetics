@@ -190,7 +190,7 @@ class SortiController extends Controller
         $countKurangura=Kurangura::all()->count();
         $warnCount=Product::all();
         $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
-        $product = Product::with('Produitname', 'Category')->where('product_Article_id','=',$id)->get();
+        $product = Product::with('Produitname', 'Category')->where('product_Article_id','=',$id)->first();
         return view('sortirRecherchePageRedirect', compact('product', 'article', 'category','countKurangura','warnCount','userRole'));
     }
 
@@ -242,5 +242,20 @@ class SortiController extends Controller
         if ($dataProduct->save()) {
             return redirect()->route('bill',$numberBill)->with('sortiProduct', 'Operation reussie !');
         }
+    }
+
+
+    #CANGING OR CANCEL SOLD PRODUCTS
+
+    public function changeCancelRedirectPage($id)
+    {
+
+        $article = ProductArticle::all();
+        $category = Category::all();
+        $countKurangura=Kurangura::all()->count();
+        $warnCount=Product::all();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $product = Sorti::with('Produitname', 'Category')->where('id','=',$id)->first();
+        return view('changeCancelSelect', compact('product', 'article', 'category','countKurangura','warnCount','userRole'));
     }
 }

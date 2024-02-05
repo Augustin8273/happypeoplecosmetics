@@ -20,19 +20,19 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-   <link href="{{asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
-   <link href="{{asset('hpc/assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/quill/quill.snow.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ asset('hpc/assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
 
-   <!-- main CSS File -->
-   <link href="{{asset('hpc/assets/css/style.css')}}" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-       integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-       crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- main CSS File -->
+    <link href="{{ asset('hpc/assets/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -42,7 +42,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center">
-                <img src="{{asset('hpc/assets/img/hpc.png')}}" alt="logo">
+                <img src="{{ asset('hpc/assets/img/hpc.png') }}" alt="logo">
                 <span class="d-none d-lg-block" style="color: #390101;">HPC</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -50,11 +50,10 @@
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
-                <li><a class="nav-link nav-icon" href="{{route('productSortir')}}"
-                    title="Sortir du stock">
-                    <i class="bi bi-currency-dollar"
-                    style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
-                </a></li>
+                <li><a class="nav-link nav-icon" href="{{ route('productSortir') }}" title="Sortir du stock">
+                        <i class="bi bi-currency-dollar"
+                            style="background: #ccaa93;color:#390101;border-radius:50%;padding:5px;"></i>
+                    </a></li>
                 <li class="nav-item dropdown">
                     @php
                         $countW = 0;
@@ -69,14 +68,12 @@
                     @endforeach
 
                     @if ($countW)
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="low stock">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="low stock">
                             <i class="bi bi-bell"></i>
                             <span class="badge bg-danger badge-number">{{ $countW }}</span>
                         </a>
                     @else
-                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"
-                            title="low stock">
+                        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown" title="low stock">
                             <i class="bi bi-bell"></i>
 
                         </a>
@@ -113,7 +110,8 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                         <li class="dropdown-header">
-                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans l'avenir
+                            <span class="badge bg-success">{{ $countKurangura }}</span> Produits a acheter dans
+                            l'avenir
                             <a href="{{ route('rangura') }}"><span class="badge rounded-pill bg-primary p-2 ms-2">Voir
                                     tout</span></a>
                         </li>
@@ -128,7 +126,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="{{asset('hpc/assets/img/user.png')}}"alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('hpc/assets/img/user.png') }}"alt="Profile" class="rounded-circle">
                         <span class="d-none d-md-block dropdown-toggle ps-2"></span>
                     </a><!-- End Profile Iamge Icon -->
 
@@ -260,8 +258,10 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link collapsed" data-bs-target="#Deperte-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-exclamation-octagon-fill"></i><span>Depenses et Pertes</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="Deperte-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -281,12 +281,12 @@
             <li class="nav-heading">Configurations</li>
 
             @if ($userRole->roles->name == 'Manager')
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
-                    <i class="bi bi-person-add"></i>
-                    <span>Ajouter utilisateur</span>
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('addUserCreate') }}">
+                        <i class="bi bi-person-add"></i>
+                        <span>Ajouter utilisateur</span>
+                    </a>
+                </li>
             @endif
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('category_create') }}">
@@ -295,12 +295,12 @@
                 </a>
             </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
-                <i class="bi bi-exclamation-octagon-fill"></i>
-                <span>Type de perte</span>
-            </a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('type_perte_create') }}">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                    <span>Type de perte</span>
+                </a>
+            </li>
         </ul>
 
     </aside><!-- End Sidebar-->
@@ -308,67 +308,40 @@
     <main id="main" class="main">
         <section class="section dashboard">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
 
-                        <div class="col-12">
-                            <div class="card top-selling overflow-auto">
-                                <div class="card-body pb-0">
+                <div class="col-lg-6">
+                    <div class="card top-selling">
+                        <div class="card-body pb-0">
 
-                                    <h5 class="card-title">Vendre : <span style="color: red;font-weight:bold;font-size:25px;">{{$product->Produitname->nameProduct}}</span></h5>
-
-
-                                    @if (session('messageQuantite'))
-                                            <div class="alert alert-danger" role="alert">
-                                                {{ session('messageQuantite') }}
-                                            </div>
-                                        @endif
-                                    <table class="table table-bordeless datatable" id="example">
-
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Produit</th>
-                                                <th scope="col">Categorie</th>
-                                                <th scope="col">Prix unitaire</th>
-                                                <th scope="col">Quantite</th>
-                                                <th scope="col">Prix total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                            <h5 class="card-title">Produit : <span
+                                    style="color: red;font-weight:bold;font-size:25px;">{{ $product->Produitname->nameProduct }} {{ $product->quantity }}</span>
+                            </h5>
+                            <h5 class="card-title">Quantite : <span
+                                    style="color: red;font-weight:bold;font-size:25px;">{{ $product->quantity }}</span>
+                            </h5>
 
 
-                                            <form method="POST"name="myform" action="{{route('productRechercheSortirStore',$product->product_Article_id)}}" enctype="multipart/form-data">
-                                                @csrf
-                                                <tr>
-                                                    <td><span style="font-weight: bold;">{{$product->Produitname->nameProduct}}</span></td>
-                                                    <td><span style="font-size: 10px;">({{$product->Category->nameCategory}})</span></td>
-                                                    <td>{{$product->unitPrice}}</td>
-                                                    <td><input type="number" name="quantite[]" min="1" onkeyup="calculate(this.value)" required></td>
-                                                    <td><input style="color: red;font-weight:bold;border:none;" type="text" name="prixTotal" readonly ></td>
-                                                    <td><input type="text" name="prixUnitaire" value="{{$product->unitPrice}}" hidden></td>
-
-
-                                                </tr>
-
-
-                                        </tbody>
-                                    </table>
+                            @if (session('messageQuantite'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ session('messageQuantite') }}
                                 </div>
-                                <div class="row">
-                                    <div class="col-xl-6">
+                            @endif
 
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input type="submit" class="btn btn-success" value="Confirmer">
+                            <div class="row">
+                                <div class="col-xl-6 mb-5">
+                                    <a href=""><input type="submit" class="btn btn-success" value="Retourner tout sans changer"></a>
 
-                                    </div>
                                 </div>
-                            </form>
                             </div>
+
+                            <div class="row">
+                                <div class="col-xl-6 mb-5">
+                                    <input type="submit" class="btn btn-success" value="Changer et retourner">
+
+                                </div>
+                            </div>
+
                         </div>
-
-
-
 
                     </div>
                 </div>
@@ -379,18 +352,19 @@
 
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
-        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION STOCK</span></strong></div>
+        <div class="copyright"> <strong><span style="color: #390101;">HAPPY PEOPLE COSMETICS GESTION
+                    STOCK</span></strong></div>
     </footer><!-- End Footer -->
 
 
     <!-- Vendor JS Files -->
-    <script src="{{asset('HPC/assets/vendor/apexcharts/apexcharts.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
+    <script src="{{ asset('HPC/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/chart.js/chart.umd.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/echarts/echarts.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/quill/quill.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/php-email-form/validate.js') }}"></script>
 
     <!-- Toastr-->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
@@ -400,23 +374,24 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Template Main JS File -->
-    <script src="{{asset('HPC/assets/js/main.js')}}"></script>
+    <script src="{{ asset('HPC/assets/js/main.js') }}"></script>
 
-    <script type = "text/javascript">
+    <script type="text/javascript">
         function calculate() {
-         if(isNaN(document.forms["myform"]["quantite[]"].value) || document.forms["myform"]["quantite[]"].value=="") {
-         var text1 = 0;
-         } else {
-         var text1 = parseInt(document.forms["myform"]["quantite[]"].value);
-         }
-         if(isNaN(document.forms["myform"]["prixUnitaire"].value) || document.forms["myform"]["prixUnitaire"].value=="") {
-         var text2 = 0;
-         } else {
-         var text2 = parseFloat(document.forms["myform"]["prixUnitaire"].value);
-         }
-         document.forms["myform"]["prixTotal"].value = (text1*text2);
-         }
-        </script>
+            if (isNaN(document.forms["myform"]["quantite[]"].value) || document.forms["myform"]["quantite[]"].value == "") {
+                var text1 = 0;
+            } else {
+                var text1 = parseInt(document.forms["myform"]["quantite[]"].value);
+            }
+            if (isNaN(document.forms["myform"]["prixUnitaire"].value) || document.forms["myform"]["prixUnitaire"].value ==
+                "") {
+                var text2 = 0;
+            } else {
+                var text2 = parseFloat(document.forms["myform"]["prixUnitaire"].value);
+            }
+            document.forms["myform"]["prixTotal"].value = (text1 * text2);
+        }
+    </script>
 
 </body>
 
