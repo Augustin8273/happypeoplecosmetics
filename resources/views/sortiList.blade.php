@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Stock</title>
+    <title>Sorti_list</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 

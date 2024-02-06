@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Stock</title>
+    <title>Changer</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -314,181 +314,75 @@
                         <div class="col-12">
                             <div class="card top-selling overflow-auto">
                                 <div class="card-body pb-0">
-                                    <h5 class="card-title">Stock actuel</h5>
-                                    @if (session('sortiReturnProduct'))
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{ session('sortiReturnProduct') }}
-                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                                aria-label="Close"></button>
-                                        </div>
-                                    @endif
-                                    <h5 class="card-title"><button class="btn btn-" style="background:#390101;color:white;" data-bs-toggle="modal"
-                                            data-bs-target="#basicModal">Approvisionner</button>&nbsp&nbsp<a href="{{route('stockListExport')}}"><button class="btn btn-" style="background:#390101;color:white;"><i class="bi bi-file-earmark-pdf"></i>Telecharger</button></a></h5>
+
+                                    <h5 class="card-title">Echanger : <span style="color: red;font-weight:bold;font-size:25px;">{{$productSorti->produitname->nameProduct}} {{$productSorti->quantity}}</span>&nbsp;
+
+                                        <a href="{{route('kill_changer')}}"><button class="btn btn-danger">Annuler</button></a></h5>
+
+
+                                    @if (session('messageQuantite'))
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ session('messageQuantite') }}
+                                            </div>
+                                        @endif
                                     <table class="table table-bordeless datatable" id="example">
+
                                         <thead>
                                             <tr>
                                                 <th scope="col">Produit</th>
-                                                <th scope="col">Categorie</th>
-                                                <th scope="col">Quantite</th>
+                                                <th scope="col">Categorie/Qtt</th>
                                                 <th scope="col">Prix unitaire</th>
+                                                <th scope="col">Quantite</th>
                                                 <th scope="col">Prix total</th>
-                                                <th scope="col"><i></i></th>
-                                                <th scope="col"><i></i></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $total=0;
-                                                $profit=0;
-                                                $achat=0;
-                                            @endphp
-                                            @foreach ($product as $products)
+
+
+                                            <form method="POST"name="myform" action="{{route('Sorti_echanger_save',$product->produitname->id)}}" enctype="multipart/form-data">
+                                                @csrf
                                                 <tr>
-                                                    <td><span style="font-weight: bold;">{{$products->Produitname->nameProduct}}</span></td>
-                                                    <td><span style="font-size: 10px;">({{$products->Category->nameCategory}})</span></td>
-                                                    <td>{{$products->quantity}}</td>
-                                                    <td>{{$products->unitPrice}}</td>
-                                                    <td>{{$products->totalPrice}}</td>
-                                                    <td><a href="{{ route('stockEdit', $products->id) }}"><i
-                                                        class="bi bi-pencil text-success"></i></a></td>
+                                                    <td><span style="font-weight: bold;">{{$product->Produitname->nameProduct}}</span></td>
+                                                    <td><span style="font-size: 10px;">({{$product->Category->nameCategory}})</span></td>
+                                                    <td>{{$product->unitPrice}}</td>
+                                                    <td><input type="number" name="quantite[]" min="1" onkeyup="calculate(this.value)" required></td>
+                                                    <td><input style="color: red;font-weight:bold;border:none;" type="text" name="prixTotal" readonly ></td>
+                                                    <td><input type="text" name="prixUnitaire" value="{{$product->unitPrice}}" hidden></td>
 
-                                                        <td><a href="{{ route('stockDelete', $products->id) }}" onclick="return confirm('Voulez-vous enlever ce pproduit dans le stock ?')"><i
-                                                        class="bi bi-trash text-success"></i></a></td>
-                                                    @php
-                                                        $total+=$products->totalPrice;
-                                                        $quantity=$products->quantity;
-                                                        $WholeSale=$products->Produitname->wholeSalePrice;
-                                                        $SellingPrice=$products->unitPrice;
-                                                        $aimedProfit=$SellingPrice-$WholeSale;
-                                                        $capital1=$WholeSale*$quantity;
-                                                        $profit1=$aimedProfit*$quantity;
-                                                        $achat+=$capital1;
-                                                        $profit+=$profit1;
 
-                                                    @endphp
                                                 </tr>
-                                            @endforeach
+                                                <tr>
+                                                    <td colspan="1"></td>
+                                                    <td colspan="5"><span style="text-align: center;font-size:20px;font-weight:bold;">QUANTITE RETOURNE</span></td>
+                                                </tr>
+                                                <tr style="color:red;">
+                                                    <td><span style="font-weight: bold;">{{$productSorti->Produitname->nameProduct}}</span></td>
+                                                    <td><span style="font-size: 10px;">({{$productSorti->Category->nameCategory}}) Qtt ({{$productSorti->quantity}})</span></td>
+                                                    <td>{{$productSorti->unitPrice}}</td>
+                                                    <td><input type="number" name="quantit" class="text-danger"  min="1" onkeyup="calculateTotal(this.value)" required></td>
+                                                    <td><input style="color: red;font-weight:bold;border:none;" type="text" name="prixTota" readonly ></td>
+                                                    <td><input type="text" name="prixUnitai" value="{{$productSorti->unitPrice}}" hidden></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="1"><input style="color: red;font-weight:bold;border:none;font-size:18px;" type="text" name="MontaAjout" readonly ></td>
+                                                </tr>
 
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class="row">
-                                    <div class="col-xl-3">
-                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Capital :</span><span
-                                                style="font-size: 12px;color:#ffffff;">{{number_format($achat, 0, ',', '.')}}
-                                                Fbu</span></p>
+                                    <div class="col-xl-6">
+
                                     </div>
-                                    <div class="col-xl-3">
-                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Profit :</span><span
-                                                style="font-size: 12px;color:#ffffff;">{{number_format($profit, 0, ',', '.')}}
-                                                Fbu</span></p>
-                                    </div>
-                                    <div class="col-xl-3">
-                                        <p class="text-black float-end fw-bold" style="background: #390101;padding:6px;color:#ffffff;"><span class="text-white me-3" style="font-size: 10px;">
-                                                Valeur du stock :</span><span
-                                                style="font-size: 12px;color:#ffffff;">{{number_format($total, 0, ',', '.')}}
-                                                Fbu</span></p>
+                                    <div class="col-xl-6">
+                                        <input type="submit" class="btn btn-success" value="Echanger">
+
                                     </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
-
-                        <!-- Start approvisionnement Modal-->
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
-                                    <div class="modal-dialog ">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Approvisionnement du stock</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <!-- Multi Columns Form -->
-                                        <form class="row g-3" name="myform" action="{{route('approvisonner')}}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <table class="table table-bordeless">
-                                            <thead style="background: #7a6161;color:white;">
-                                                <tr>
-                                                    <th>Designation</th>
-                                                    <th>Categorie</th>
-                                                    <th>Quantite</th>
-                                                    <th>Prix unitaire</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <select class="form-control" id=""
-                                                                name="article_id[]">
-
-                                                                @foreach ($article as $articles)
-                                                                    <option value="{{ $articles->id }}">{{$articles->nameProduct}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <select class="form-control" id=""
-                                                                name="category[]">
-
-                                                                @foreach ($category as $categories)
-                                                                    <option value="{{ $categories->id }}">{{$categories->nameCategory}}</option>
-                                                                @endforeach
-
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <input type="number" class="form-control"
-                                                                id="inputName5" min="1"
-                                                                placeholder="Quantite" name="quantite[]"
-                                                                onkeyup="calculate(this.value)" required>
-
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="col-md-12">
-
-                                                            <input type="number" class="form-control"
-                                                                id="inputName5" min="1"
-                                                                placeholder="Prix unitaire" name="prixUnitaire[]"
-                                                                onkeyup="calculate(this.value)" required>
-
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-
-                                    <!-- End Multi Columns Form -->
-                                            <div class="modal-footer">
-                                                <button type="submit"
-                                                    class="btn btn-" style="background:#390101;color:white;">Enregistrer</button>&nbsp&nbsp
-                                                <button type="button" class="btn btn-danger"
-                                                    data-bs-dismiss="modal">Fermer</button>
-
-
-                                            </div>
-                                            </form><!-- End Multi Columns Form -->
-                                        </div>
-                                    </div>
-                                </div><!-- End approvisionnement Modal-->
-
-
                     </div>
                 </div>
             </div>
@@ -508,7 +402,6 @@
     <script src="{{asset('HPC/assets/vendor/chart.js/chart.umd.js')}}"></script>
     <script src="{{asset('HPC/assets/vendor/echarts/echarts.min.js')}}"></script>
     <script src="{{asset('HPC/assets/vendor/quill/quill.min.js')}}"></script>
-    <script src="{{asset('HPC/assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{asset('HPC/assets/vendor/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('HPC/assets/vendor/php-email-form/validate.js')}}"></script>
 
@@ -522,54 +415,70 @@
     <!-- Template Main JS File -->
     <script src="{{asset('HPC/assets/js/main.js')}}"></script>
 
-    <script>
-        var i = 0;
-        $('thead').on('click', '.addRow', function() {
+    <script type = "text/javascript">
+        function calculate() {
+         if(isNaN(document.forms["myform"]["quantite[]"].value) || document.forms["myform"]["quantite[]"].value=="") {
+         var text1 = 0;
+         } else {
+         var text1 = parseInt(document.forms["myform"]["quantite[]"].value);
+         }
+         if(isNaN(document.forms["myform"]["prixUnitaire"].value) || document.forms["myform"]["prixUnitaire"].value=="") {
+         var text2 = 0;
+         } else {
+         var text2 = parseFloat(document.forms["myform"]["prixUnitaire"].value);
+         }
+         document.forms["myform"]["prixTotal"].value = (text1*text2);
 
-            var tr = `<tr>
-                <td>
-                         <div class="col-md-12">
+         if(isNaN(document.forms["myform"]["prixTotal"].value) || document.forms["myform"]["prixTotal"].value=="") {
+     var text3 = 0;
+     } else {
+     var text3 = parseFloat(document.forms["myform"]["prixTotal"].value);
+     }
 
-                            <select class="form-control" id=""
-                                name="category_id[]">
+     if(isNaN(document.forms["myform"]["prixTota"].value) || document.forms["myform"]["prixTota"].value=="") {
+     var text4 = 0;
+     } else {
+     var text4 = parseFloat(document.forms["myform"]["prixTota"].value);
+     }
+     document.forms["myform"]["MontaAjout"].value = (text4-text3);
 
-                            </select>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-md-12">
 
-                                <input type="number" class="form-control" id="inputName5"
-                                min="1" placeholder="Quantite"
-                                name="quantite[]" onkeyup="calculate(this.value)"
-                                required>
+         }
+        </script>
 
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-md-12">
+<script type = "text/javascript">
+    function calculateTotal() {
+     if(isNaN(document.forms["myform"]["quantit"].value) || document.forms["myform"]["quantit"].value=="") {
+     var text1 = 0;
+     } else {
+     var text1 = parseInt(document.forms["myform"]["quantit"].value);
+     }
+     if(isNaN(document.forms["myform"]["prixUnitai"].value) || document.forms["myform"]["prixUnitai"].value=="") {
+     var text2 = 0;
+     } else {
+     var text2 = parseFloat(document.forms["myform"]["prixUnitai"].value);
+     }
+    document.forms["myform"]["prixTota"].value = (text1*text2);
 
-                                <input type="number" class="form-control" id="inputName5"
-                                min="1" placeholder="Prix unitaire"
-                                name="prixUnitaire[]" onkeyup="calculate(this.value)"
-                                required>
+     if(isNaN(document.forms["myform"]["prixTotal"].value) || document.forms["myform"]["prixTotal"].value=="") {
+     var text3 = 0;
+     } else {
+     var text3 = parseFloat(document.forms["myform"]["prixTotal"].value);
+     }
 
-                            </div>
-                        </td>
+     if(isNaN(document.forms["myform"]["prixTota"].value) || document.forms["myform"]["prixTota"].value=="") {
+     var text4 = 0;
+     } else {
+     var text4 = parseFloat(document.forms["myform"]["prixTota"].value);
+     }
 
-                <td><a href="javascript:void(0)" class="btn btn-danger btn-sm deleteRow">-</a></td>
+     document.forms["myform"]["MontaAjout"].value = (text4-text3);
+    //  var abc =document.forms["myform"]["MontaAjout"].value = (text4-text3);
 
-                 </tr>`;
-
-            $('tbody').append(tr);
-
-        });
-
-        $('tbody').on('click', '.deleteRow', function() {
-
-            $(this).parent().parent().remove();
-        });
+     }
     </script>
+
+
 
 </body>
 

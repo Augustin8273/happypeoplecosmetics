@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <base href="/public">
 
-    <title>Stock</title>
+    <title>Echanger</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -314,7 +314,7 @@
                         <div class="card-body pb-0">
 
                             <h5 class="card-title">Produit : <span
-                                    style="color: red;font-weight:bold;font-size:25px;">{{ $product->Produitname->nameProduct }} {{ $product->quantity }}</span>
+                                    style="color: red;font-weight:bold;font-size:25px;">{{ $product->Produitname->nameProduct }}</span>
                             </h5>
                             <h5 class="card-title">Quantite : <span
                                     style="color: red;font-weight:bold;font-size:25px;">{{ $product->quantity }}</span>
@@ -329,23 +329,143 @@
 
                             <div class="row">
                                 <div class="col-xl-6 mb-5">
-                                    <a href=""><input type="submit" class="btn btn-success" value="Retourner tout sans changer"></a>
+                                    <input type="submit" class="btn btn-success"
+                                            value="Retourner tout sans changer"
+                                            data-bs-toggle="modal" data-bs-target="#basicModal2">
 
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-xl-6 mb-5">
-                                    <input type="submit" class="btn btn-success" value="Changer et retourner">
+                                    <input type="submit" class="btn btn-success" value="Echanger avec autre produit"
+                                        data-bs-toggle="modal" data-bs-target="#basicModal">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-6 mb-5">
+                                    <a href="{{ route('kill_changer') }}"><button
+                                            class="btn btn-danger">Annuler</button></a>
 
                                 </div>
                             </div>
 
                         </div>
 
-                    </div>
-                </div>
-            </div>
+                        <!-- Start changer Modal-->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="modal fade modal-lg" id="basicModal" tabindex="-1">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Changer produit : <span
+                                                        class="text-danger">{{ $product->Produitname->nameProduct }}</span>
+                                                    Quantité achetée : <span
+                                                        class="text-danger">{{ $product->quantity }}</span></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Multi Columns Form -->
+                                                <table class="table table-bordeless datatable" id="example">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Produit</th>
+                                                            <th scope="col">Categorie</th>
+                                                            <th scope="col">Quantite</th>
+                                                            <th scope="col">Prix unitaire</th>
+                                                            <th scope="col">Prix total</th>
+                                                            <th scope="col">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        @foreach ($productStock as $products)
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-weight: bold;">{{ $products->Produitname->nameProduct }}</span>
+                                                                </td>
+                                                                <td><span
+                                                                        style="font-size: 10px;">({{ $products->Category->nameCategory }})</span>
+                                                                </td>
+                                                                <td>{{ $products->quantity }}</td>
+                                                                <td>{{ $products->unitPrice }}</td>
+                                                                <td>{{ $products->totalPrice }}</td>
+                                                                <td><a href="{{ route('Sorti_echanger', $products->Produitname->id) }}"
+                                                                        class="btn btn-success">Echanger</a></td>
+
+                                                            </tr>
+                                                        @endforeach
+
+                                                    </tbody>
+                                                </table>
+                                                <!-- End Multi Columns Form -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End changer Modal-->
+
+                         <!-- Start changerTout Modal-->
+                         <div class="card">
+                            <div class="card-body">
+                                <div class="modal fade modal-lg" id="basicModal2" tabindex="-1">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Changer produit : <span
+                                                        class="text-danger">{{ $product->Produitname->nameProduct }}</span>
+                                                    Quantité achetée : <span
+                                                        class="text-danger">{{ $product->quantity }}</span></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Multi Columns Form -->
+                                                <table class="table table-bordeless datatable" id="example">
+
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Produit</th>
+                                                            <th scope="col">Categorie</th>
+                                                            <th scope="col">Quantite</th>
+                                                            <th scope="col">Prix unitaire</th>
+                                                            <th scope="col">Prix total</th>
+                                                            <th scope="col">Action</th>
+                                                            <th scope="col">.</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                            <tr>
+                                                                <td><span
+                                                                        style="font-weight: bold;">{{ $product->Produitname->nameProduct }}</span>
+                                                                </td>
+                                                                <td><span
+                                                                        style="font-size: 10px;">({{ $product->Category->nameCategory }})</span>
+                                                                </td>
+                                                                <td>{{ $product->quantity }}</td>
+                                                                <td>{{ $product->unitPrice }}</td>
+                                                                <td>{{ $product->totalPrice }}</td>
+                                                                <td><a href="{{ route('returnStock', $product->Produitname->id) }}"
+                                                                        class="btn btn-success">Echanger</a></td>
+
+                                                            </tr>
+
+
+                                                    </tbody>
+                                                </table>
+                                                <!-- End Multi Columns Form -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End changerTout Modal-->
         </section>
 
     </main><!-- End #main -->
@@ -365,6 +485,7 @@
     <script src="{{ asset('HPC/assets/vendor/quill/quill.min.js') }}"></script>
     <script src="{{ asset('HPC/assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('HPC/assets/vendor/php-email-form/validate.js') }}"></script>
+    <script src="{{ asset('HPC/assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
 
     <!-- Toastr-->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"

@@ -243,6 +243,13 @@ class ProductController extends Controller
         }
     }
 
+    public function stockDelete($id){
+        $dataProduct = Product::find($id);
+        $dataProduct->delete();
+        return redirect()->route('stock')->with('sortiReturnProduct', 'Produit enleve dans le stock avec success !');
+
+    }
+
     public function runningLow()
     {
         $countKurangura=Kurangura::all()->count();

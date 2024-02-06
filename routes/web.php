@@ -76,6 +76,7 @@ Route::get('bill/{id}',[SortiController::class,'bill'])->name('bill');
 
 
 Route::get('stockEdit/{id}',[ProductController::class,'stockEdit'])->name('stockEdit');
+Route::get('stockDelete/{id}',[ProductController::class,'stockDelete'])->name('stockDelete');
 Route::post('stockUpdate/{id}',[ProductController::class,'stockUpdate'])->name('stockUpdate');
 Route::get('runningLowStock/',[ProductController::class,'runningLow'])->name('runningLow');
 Route::get('approv_product/{id}',[ProductController::class,'productCreateRecherche'])->name('productCreateRecherche');
@@ -93,6 +94,9 @@ Route::get('stockListSortirVendreRedirectPage/{id}',[SortiController::class,'sto
 
 
 Route::get('Sorti_change/{id}',[SortiController::class,'changeCancelRedirectPage'])->name('changeCancelRedirectPage');
+Route::get('Sorti_echanger/{id}',[SortiController::class,'changeCancelRedirectPageSelect'])->name('Sorti_echanger');
+Route::post('Sorti_echanger_save/{id}',[SortiController::class,'changeDeleteSortiExchanged'])->name('Sorti_echanger_save');
+Route::get('returnStock/{id}',[SortiController::class,'returnStock'])->name('returnStock');
 
 Route::get('perte_create/',[PerteController::class,'perte_create'])->name('perte_create');
 Route::post('perte_store/',[PerteController::class,'perte_store'])->name('perte_store');
@@ -111,6 +115,10 @@ Route::get('DepenseListSortedByDate/',[DepenseController::class,'DepenseListSort
 
 Route::get('billtest/',[UserController::class,'billtest'])->name('billtest');
 Route::get('error/',[UserController::class,'errorC'])->name('error');
+
+#Killing session
+
+Route::get('back/',[SortiController::class,'kill_sorti_session'])->name('kill_changer');
 
 
 });
