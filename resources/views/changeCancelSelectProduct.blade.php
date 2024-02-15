@@ -365,6 +365,7 @@
                                                 </tr>
 
                                                 <tr>
+                                                    <td colspan="4"></td>
                                                     <td colspan="1"><input style="color: red;font-weight:bold;border:none;font-size:18px;" type="text" name="MontaAjout" readonly ></td>
                                                 </tr>
 

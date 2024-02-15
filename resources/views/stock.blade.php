@@ -352,7 +352,7 @@
                                                     <td><a href="{{ route('stockEdit', $products->id) }}"><i
                                                         class="bi bi-pencil text-success"></i></a></td>
 
-                                                        <td><a href="{{ route('stockDelete', $products->id) }}" onclick="return confirm('Voulez-vous enlever ce pproduit dans le stock ?')"><i
+                                                        <td><a href="{{ route('stockDelete', $products->id) }}" onclick="return confirm('Voulez-vous enlever ce produit dans le stock ?')"><i
                                                         class="bi bi-trash text-success"></i></a></td>
                                                     @php
                                                         $total+=$products->totalPrice;
