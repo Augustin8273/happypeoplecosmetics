@@ -72,7 +72,9 @@ Route::post('/changePassword/{id}',[UserController::class,'changePassword'])->na
 Route::get('sorti_create/',[SortiController::class,'productSortir'])->name('productSortir');
 Route::post('sorti_store/',[SortiController::class,'productSortirStore'])->name('productSortirStore');
 Route::get('sorti_list/',[SortiController::class,'sortiList'])->name('sortiList');
+Route::get('offreList/',[SortiController::class,'offreList'])->name('offreList');
 Route::get('bill/{id}',[SortiController::class,'bill'])->name('bill');
+Route::get('bill_family/{id}',[SortiController::class,'billOfferFmily'])->name('billOfferFmily');
 
 
 Route::get('stockEdit/{id}',[ProductController::class,'stockEdit'])->name('stockEdit');
@@ -89,8 +91,11 @@ Route::get('stockListExport/',[SortiController::class,'stockListExport'])->name(
 Route::get('entreeListExport/',[SortiController::class,'entreeListExport'])->name('entreeListExport');
 
 Route::get('stockListSortir/',[ProductController::class,'stockListSortir'])->name('stockListSortir');
+Route::get('stockListSortirFamily/',[ProductController::class,'stockListSortirFamilyOffer'])->name('stockListSortirFamilyOffer');
 Route::post('productRechercheSortirStore/{id}',[SortiController::class,'productRechercheSortirStore'])->name('productRechercheSortirStore');
+Route::post('Family_Offer_Store/{id}',[SortiController::class,'productRechercheOfferSortirStore'])->name('productRechercheOfferSortirStore');
 Route::get('stockListSortirVendreRedirectPage/{id}',[SortiController::class,'stockListSortirVendreRedirectPage'])->name('stockListSortirVendreRedirectPage');
+Route::get('offre_familiale/{id}',[SortiController::class,'stockListSortirOfferRedirectPage'])->name('stockListSortirOfferRedirectPage');
 
 
 Route::get('Sorti_change/{id}',[SortiController::class,'changeCancelRedirectPage'])->name('changeCancelRedirectPage');

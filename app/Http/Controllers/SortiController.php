@@ -9,6 +9,7 @@ use App\Models\Entrees;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Kurangura;
+use App\Models\FamilyOffer;
 use Illuminate\Http\Request;
 use App\Models\ProductArticle;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -90,6 +91,18 @@ class SortiController extends Controller
         return view('sortiList', compact('product', 'article', 'showButton', 'countKurangura', 'warnCount', 'userRole'));
     }
 
+    public function offreList()
+    {
+
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $article = ProductArticle::all();
+        $product = FamilyOffer::with('Produitname', 'Category', 'User')->get();
+        $showButton = 'no';
+        $countKurangura = Kurangura::all()->count();
+        $warnCount = Product::all();
+        return view('offreList', compact('product', 'article', 'showButton', 'countKurangura', 'warnCount', 'userRole'));
+    }
+
     public function bill($id)
     {
         $bill = Sorti::where('numeroSorti', $id)->first();
@@ -102,6 +115,28 @@ class SortiController extends Controller
 
 
         return view('bill', compact(
+            'bill',
+            'billData',
+            'current',
+            'userRole',
+            'userOperation',
+            'countKurangura',
+            'warnCount'
+        ));
+    }
+
+    public function billOfferFmily($id)
+    {
+        $bill = FamilyOffer::where('numeroSorti', $id)->first();
+        $billData = FamilyOffer::with('Category', 'Produitname')->where('numeroSorti', '=', $id)->get();
+        $userOperation = User::where('id', '=', $bill->user_id)->first();
+        $current = Carbon::now()->toDateTimeString();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $countKurangura = Kurangura::all()->count();
+        $warnCount = Product::all();
+
+
+        return view('billOfferFmily', compact(
             'bill',
             'billData',
             'current',
@@ -193,6 +228,18 @@ class SortiController extends Controller
         return view('sortirRecherchePageRedirect', compact('product', 'article', 'category', 'countKurangura', 'warnCount', 'userRole'));
     }
 
+    public function stockListSortirOfferRedirectPage($id)
+    {
+
+        $article = ProductArticle::all();
+        $category = Category::all();
+        $countKurangura = Kurangura::all()->count();
+        $warnCount = Product::all();
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+        $product = Product::with('Produitname', 'Category')->where('product_Article_id', '=', $id)->first();
+        return view('sortirRechercheOfferPageRedirect', compact('product', 'article', 'category', 'countKurangura', 'warnCount', 'userRole'));
+    }
+
 
     public function productRechercheSortirStore(Request $request, $id)
     {
@@ -240,6 +287,55 @@ class SortiController extends Controller
 
         if ($dataProduct->save()) {
             return redirect()->route('bill', $numberBill)->with('sortiProduct', 'Operation reussie !');
+        }
+    }
+
+    public function productRechercheOfferSortirStore(Request $request, $id)
+    {
+
+        $nameProduct = $id;
+        $quantite = $request->quantite;
+        $userRole = User::with('roles')->where('id', '=', session()->get('loginId'))->first();
+
+        if ($quantite) {
+            for ($i = 0; $i < count($quantite); $i++) {
+                $Qt = Product::where('product_Article_id', $nameProduct)->first();
+
+                if ($Qt->quantity < $quantite[$i]) {
+                    return back()->with('messageQuantite', 'Attention, Verifier dans le stock, la quantite que vous voulez livrer de cet article  , depasse la quantite se trouvant dans le stock ! ');
+                }
+            }
+        }
+        $numberBillFetch = DB::table('family_offers')->distinct()->count('numeroSorti');
+        $numberBill = $numberBillFetch + 1;
+
+        for ($i = 0; $i < count($quantite); $i++) {
+            $dataProduct = Product::where('product_article_id', $nameProduct)->first();
+            $dataSortie = new FamilyOffer();
+            $unPrice = $dataProduct->unitPrice;
+            $dataSortie->date = Carbon::now()->toDateString();
+            $dataSortie->numeroSorti = $numberBill;
+            $dataSortie->quantity = $quantite[$i];
+            $dataSortie->unitPrice = $dataProduct->unitPrice;
+            $dataSortie->totalPrice = $quantite[$i] * $unPrice;
+            $dataSortie->product_Article_id = $nameProduct;
+            $dataSortie->category_id = $dataProduct->category_id;
+            $dataSortie->user_id = $userRole->id;
+            $dataSortie->save();
+
+            if ($dataSortie->save()) {
+                $totalQuantity = $dataProduct->quantity;
+                $dataProduct->quantity = $totalQuantity - $quantite[$i];
+                $Qrestant = $totalQuantity - $quantite[$i];
+                $dataProduct->totalPrice = $unPrice * $Qrestant;
+
+                $dataProduct->save();
+            }
+        }
+
+
+        if ($dataProduct->save()) {
+            return redirect()->route('billOfferFmily', $numberBill)->with('sortiProduct', 'Operation reussie !');
         }
     }
 
