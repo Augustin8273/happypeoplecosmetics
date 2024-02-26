@@ -373,7 +373,6 @@ class SortiController extends Controller
     public function changeDeleteSortiExchanged(Request $request, $id)
     {
 
-
         $sorti_Id = session()->get('sortiProdChange_id');
 
         $nameProduct = $id;
@@ -397,7 +396,6 @@ class SortiController extends Controller
         $dataSortieCheck = Sorti::where('id', session()->get('sortiProdChange_id'))->first();
         $dataQuantityToChange = $dataSortieCheck->quantity;
         $dataQuantityToChangeunitPrice = $dataSortieCheck->unitPrice;
-        // $dataToIncrement = Product::where('product_article_id', $nameProduct)->first();
         $dataToIncrement = Product::with('Produitname', 'Category')->where('product_article_id', '=',$proIdSor )->first();
 
         if ($quantit > $dataQuantityToChange) {
@@ -454,7 +452,6 @@ class SortiController extends Controller
 
             }
 
-
         }
         if ($quantit < $dataQuantityToChange) {
 
@@ -465,7 +462,7 @@ class SortiController extends Controller
             $dda= Product::where('product_article_id', $proIdSor)->first();
             $dda->quantity = $TotalQuantityIncrease;
             $dda->totalPrice = $TotalQuantityIncrease * $Uprice;
-            // dd($TotalQuantityIncrease);
+
             $dda->save();
             if($dda->save()){
                 $dataSortieCheck->quantity=$dataQuantityToChange-$quantit;
@@ -510,40 +507,6 @@ class SortiController extends Controller
             }
 
         }
-
-
-
-        // $numberBillFetch = DB::table('sortis')->distinct()->count('numeroSorti');
-        // $numberBill = $numberBillFetch + 1;
-
-        // for ($i = 0; $i < count($quantite); $i++) {
-        //     $dataProduct = Product::where('product_article_id', $nameProduct)->first();
-        //     $dataSortie = new Sorti();
-        //     $unPrice = $dataProduct->unitPrice;
-        //     $dataSortie->date = Carbon::now()->toDateString();
-        //     $dataSortie->numeroSorti = $numberBill;
-        //     $dataSortie->quantity = $quantite[$i];
-        //     $dataSortie->unitPrice = $dataProduct->unitPrice;
-        //     $dataSortie->totalPrice = $quantite[$i] * $unPrice;
-        //     $dataSortie->product_Article_id = $nameProduct;
-        //     $dataSortie->category_id = $dataProduct->category_id;
-        //     $dataSortie->user_id = $userRole->id;
-        //     $dataSortie->save();
-
-        //     if ($dataSortie->save()) {
-        //         $totalQuantity = $dataProduct->quantity;
-        //         $dataProduct->quantity = $totalQuantity - $quantite[$i];
-        //         $Qrestant = $totalQuantity - $quantite[$i];
-        //         $dataProduct->totalPrice = $unPrice * $Qrestant;
-
-        //         $dataProduct->save();
-        //     }
-        // }
-
-
-        // if ($dataProduct->save()) {
-        //     return redirect()->route('bill', $numberBill)->with('sortiProduct', 'Operation reussie !');
-        // }
     }
 
     public function returnStock($id){
@@ -582,7 +545,33 @@ class SortiController extends Controller
 
             }
 
+    }
+    public function returnStockOffreFamille($id){
 
+
+        $productSorti = FamilyOffer::with('Produitname', 'Category')->where('id', '=', $id)->first();
+        $proIdSor=$productSorti->produitname->id;
+        $quantit=$productSorti->quantity;
+
+        $dataToIncrement = Product::with('Produitname', 'Category')->where('product_article_id', '=',$proIdSor )->first();
+
+            $qttStock = $dataToIncrement->quantity;
+            $Uprice = $dataToIncrement->unitPrice;
+            $TotalQuantityIncrease = $quantit + $qttStock;
+
+            $dda= Product::where('product_article_id', $proIdSor)->first();
+            $dda->quantity = $TotalQuantityIncrease;
+            $dda->totalPrice = $TotalQuantityIncrease * $Uprice;
+            $dda->save();
+            if($dda->save()){
+                $dataoffer = FamilyOffer::where('id', '=',$id)->first();
+                $dataofferDelete=$dataoffer->delete();
+
+        if ($dataofferDelete) {
+            return redirect()->route('stock')->with('sortiReturnProduct', 'Produit retourne en stock avec success !');
+        }
+
+            }
 
     }
 

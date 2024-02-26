@@ -102,6 +102,7 @@ Route::get('Sorti_change/{id}',[SortiController::class,'changeCancelRedirectPage
 Route::get('Sorti_echanger/{id}',[SortiController::class,'changeCancelRedirectPageSelect'])->name('Sorti_echanger');
 Route::post('Sorti_echanger_save/{id}',[SortiController::class,'changeDeleteSortiExchanged'])->name('Sorti_echanger_save');
 Route::get('returnStock/{id}',[SortiController::class,'returnStock'])->name('returnStock');
+Route::get('returnStockOffer/{id}',[SortiController::class,'returnStockOffreFamille'])->name('returnStockOffer');
 
 Route::get('perte_create/',[PerteController::class,'perte_create'])->name('perte_create');
 Route::post('perte_store/',[PerteController::class,'perte_store'])->name('perte_store');
