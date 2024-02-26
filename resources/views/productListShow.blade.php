@@ -93,7 +93,6 @@
                             <hr class="dropdown-divider">
                         </li>
 
-
                     </ul><!-- End Notification Dropdown Items -->
 
                 </li><!-- End Notification Nav -->

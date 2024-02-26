@@ -275,6 +275,26 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-people"></i><span>Famille</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                    <li>
+                        <a href="{{ route('stockListSortirFamilyOffer') }}">
+                            <i class="bi bi-circle"></i><span>Offrir</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('offreList') }}">
+                            <i class="bi bi-circle"></i><span>Liste</span>
+                        </a>
+                    </li>
+                </ul>
             </li><!-- End Forms Nav -->
 
 
@@ -345,9 +365,7 @@
                                                     <td><input style="color: red;font-weight:bold;border:none;" type="text" name="prixTotal" readonly ></td>
                                                     <td><input type="text" name="prixUnitaire" value="{{$product->unitPrice}}" hidden></td>
 
-
                                                 </tr>
-
 
                                         </tbody>
                                     </table>
